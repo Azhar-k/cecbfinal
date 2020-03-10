@@ -15,7 +15,10 @@ app = Flask(__name__)
 
 CORS(app) # This will enable CORS for all routes
 
+DIALOGFLOW_PROJECT_ID="cecb-pwfeqw"
+GOOGLE_APPLICATION_CREDENTIALS="cecb-pwfeqw-a9d9b4d233ef.json"
 
+#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
 UPLOAD_FOLDER = '/home/azhar/Main Project/cecb2/user_documents'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
@@ -168,7 +171,7 @@ def send_message():
         response_text = { "message":  "check your internet connection..", "type":"default"}
         return jsonify(response_text)
     message = request.form['message']
-    project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
+    project_id = DIALOGFLOW_PROJECT_ID
     response = detect_intent_texts(project_id, "unique", message, 'en')   
     #print(fulfillment_text)
     
@@ -178,7 +181,6 @@ def send_message():
     #print(response['queryResult']['fulfillmentMessages'][0]['simpleResponses']['simpleResponses'])
     #fulfillment_text1=json.loads(fulfillment_text)
     #print(response)
-    print(os.environ['GOOGLE_APPLICATION_CREDENTIALS']) 
     if 'outputContexts' in response['queryResult']:
         fulfillment_text=response['queryResult']['fulfillmentText']
         response_text = { "message":  fulfillment_text, "type":"default"}
