@@ -1,10 +1,105 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-	<link rel="icon" type="image/png" href="" />
-</head>
-<body>
-<h1>Welcome</h1>
-</body>
-</html>
+<!doctype html>
+  <html lang="en">
+      <head>
+          <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" type="image/png" href="" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <title>College Helper</title>
+      </head>
+
+      <body >
+
+        <div class="wrapper">
+
+          <nav id="sidebar"   >
+            <div class="sidebar-header">
+              <h4>
+                <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
+                  CECB
+              </h4>
+            </div>
+            <ul class="text-dark">
+                <li><a href="{{url_for('index')}}">Home</a></li>
+                <li> 
+                  <button id="uploadDoc" class='btn btn-primary d-none d-lg-block d-md-none'>
+                    Upload my document
+                  </button>
+                  <br>
+                  
+                  
+                </li>
+                <li> 
+                  <button id="printDoc" class='btn btn-primary d-none d-lg-block d-md-none'>
+                    Print my document
+                  </button>
+                </li>
+            </ul>
+          </nav>
+
+
+          <div id="content">
+            <nav class="navbar navbar-expand-lg  navbar-dark ">
+              <button type="button" id="sidebarCollapse" class="btn btn-danger">
+                <i class="fa fa-bars"></i> Menu
+                  <span></span>
+              </button>
+            </nav>
+            <main style="padding-bottom:10px;">
+            <div id="container" class="container h-100">
+              <div class="row align-items-center h-100" >
+                <div class="col-md-8 col-sm-12 ">              
+                  <div class="col-md-8 col-sm-12 mx-auto" >
+                    <div class="h-100 justify-content-center">
+                      <div id="chat-window" class="chat-container" style="overflow: auto; max-height: 80vh" >
+                              <!-- chat messages -->
+                      </div>
+                      <form id="target">
+                        <div class="input-group">
+                          <i id="voiceButton" class="fa fa-microphone  text-danger " style="position:absolute;z-index:10;bottom:13px;right:12px;cursor:pointer;font-size: 24px;">
+                          </i>
+                          <input class="input form-control" type="text" value="" placeholder="Enter message..." id="input_message"/>
+                        </div>
+                        <div class="clearfix mt-2">
+                          <div class="text-right">
+                            <input type="submit" class="btn btn-outline-danger btn-normal">
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </main>
+          </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+        </script>
+        <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
+        <script src="{{ url_for('static', filename='custom.js')}}"></script>
+        <script>
+                $(document).ready(function () {
+                    $('.dropdown-toggle').dropdown();
+                    $('#sidebarCollapse').on('click', function () {
+                        $('#sidebar').toggleClass('active');
+                    });
+                });
+        </script>
+      </body>
+  </html> 

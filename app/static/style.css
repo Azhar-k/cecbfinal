@@ -1,0 +1,123 @@
+ body,html {
+        height: 100%;
+    }
+
+    .chat-container {
+        margin: 0px;
+        padding: px;
+    }
+
+    .chat-message {
+      padding: 6px;
+      border-radius: 3px;
+      margin-bottom: 3px;
+    }
+
+    .bot-message {
+        background: green;
+        color: white;
+    }
+
+    .human-message {
+        background: dodgerblue;
+        color: white;
+        margin: 13px 1px;
+    }
+
+    .input {
+      width: 100%;
+      margin: 35px 0px;
+      height: 60px;
+      border: 1px solid rosybrown;
+      border-radius: 3px;
+    } 
+/* sidebar css */
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+#sidebar > ul > li >a {
+    color: #000;
+}
+#sidebar > ul {
+  list-style: none;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    background: #f8f9fa;
+    color: #000;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #f8f9fa;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #ffffff;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 0.95em;
+    display: block;
+    
+}
+.sub-menu {
+    background-color: #7ebcfa;
+}
+
+#sidebar ul li a:hover {
+    color: #000;
+    background: #fff;
+}
+
+#sidebar ul li.active>a,
+#sidebar ul li.active>a[aria-expanded="true"] {
+    color: #fff;
+    background: $info;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#sidebar > ul > li >a.toggle-btn::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    white-space: nowrap;
+
+}
+#sidebar .collapse>li>a,#sidebar .collapsing>li>a,#sidebar .collapsed>li>a{
+    color: #fff;
+    padding-left: 30px; 
+    /* &:hover {
+        color: #f8f9fa;
+    } */
+}
+#content {
+    width: 100%;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+       

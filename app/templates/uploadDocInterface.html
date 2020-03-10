@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+      <style>
+           
+      </style>
+   </head>
+   <body>
+      
+      <!--<div id="container"  class="banner banner-top alert-primary active" role="alert">-->
+      <div id="container" class="">
+         <form id='myform' enctype="multipart/form-data" method="post" >
+            <h2>Select your file</h2>
+            <input type="file" style="width: 400px; background-color: white" class="form-control-sm form-control" id="fileUpload" /><br>
+            <input type="text" class="form-control form-control-sm" style="width: 200px" id="security_key" placeholder="Enter the security key" />
+            <br>
+            <input class="btn btn-outline-danger" type="button" value="Upload" id="uploadFile">
+         </form>
+         
+      </div>
+
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
+      </script>
+      <script>
+
+      
+
+         $('#uploadFile').click(function(e){
+           console.log("clicked")
+            /*document.querySelector('#fileUpload').addEventListener('change', event => {
+            handleImageUpload(event)
+            })*/
+             $('#container').append(`
+              <div id="uploadingMessage">
+                <br>
+                <h4>uploading...</h4>
+              </div>
+              `);
+            
+            var fd = new FormData();
+            var files = $('#fileUpload')[0].files[0];
+            var security_key=$('#security_key').val();
+            fd.append('myFile',files);
+            fd.append('security_key',security_key);
+
+            $.ajax({
+            url: 'saveDoc',
+            type: 'post',
+            data: fd,
+            contentType: false,
+            processData: false,
+            success: function(response){
+              $('#uploadingMessage').remove();
+              $('#container').append(`
+              <div id="uploadSuccessMessage">
+                <br>
+                <h4>Success</h4>
+              </div>
+              `);
+               console.log(response)
+               $('#security_key').val("");
+              
+            },
+            error:function(response){
+              $('#uploadingMessage').remove();
+              $('#container').append(`
+              <div id="uploadSuccessMessage">
+                <br>
+                <h4>Sorry..upload failed..try again</h4>
+              </div>
+              `);
+               console.log(response)
+               $('#security_key').val("");
+            },
+          });
+          
+
+        });
+
+        
+      </script>
+      
+   </body>
+</html>
