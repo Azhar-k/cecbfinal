@@ -92,7 +92,7 @@ def getFacultyDetails(department):
 	department=str(department)
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name,email_id,mobile_number FROM faculty where department='"+department+"'"
+			sql = "SELECT name,email_id,mobile_number FROM faculties where department='"+department+"'"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()

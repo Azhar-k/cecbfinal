@@ -49,7 +49,7 @@ def saveDoc():
     if request.method == 'POST':  
         f = request.files['myFile']  
         #f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
-        f.save(os.path.join(f.filename))
+        f.save(f.filename)
         status=dbconnect.addDoc(f.filename,f.filename,security_key)
         response_text = { "message":  f.filename , "status":status}
         return jsonify(response_text)
