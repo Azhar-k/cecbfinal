@@ -104,7 +104,7 @@ def getPlacementRecord(year):
 	connection = pymysql.connect(
     host='us-cdbr-iron-east-04.cleardb.net',
     user='b0b545128ae92d',
-    password='c49f1880@',
+    password='c49f1880',
     db='heroku_8e6c81ecf6d2f59',
 	)
 	rec=''
