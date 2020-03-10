@@ -99,11 +99,13 @@ def getFacultyDetails(department):
 	print(recStr)
 	return recStr
 def getPlacementRecord(year):
+	#mysql://b0b545128ae92d:c49f1880@us-cdbr-iron-east-04.cleardb.net/heroku_8e6c81ecf6d2f59?reconnect=true
+
 	connection = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='',
-    db='cecb',
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880@',
+    db='heroku_8e6c81ecf6d2f59',
 	)
 	rec=''
 	try:
