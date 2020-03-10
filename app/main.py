@@ -18,8 +18,8 @@ CORS(app) # This will enable CORS for all routes
 #DIALOGFLOW_PROJECT_ID="cecb-pwfeqw"
 #GOOGLE_APPLICATION_CREDENTIALS="cecb-pwfeqw-a9d9b4d233ef.json"
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
-UPLOAD_FOLDER = '/user_documents'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+#UPLOAD_FOLDER = '/user_documents'
+#app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def index():
@@ -48,7 +48,8 @@ def saveDoc():
         return jsonify({"message":"File not selected"})
     if request.method == 'POST':  
         f = request.files['myFile']  
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+        #f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+        f.save(os.path.join(f.filename))
         status=dbconnect.addDoc(f.filename,f.filename,security_key)
         response_text = { "message":  f.filename , "status":status}
         return jsonify(response_text)
