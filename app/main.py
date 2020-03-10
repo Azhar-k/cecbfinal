@@ -15,7 +15,7 @@ app = Flask(__name__)
 
 CORS(app) # This will enable CORS for all routes
 
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-0c6d5cc48113.json"
 UPLOAD_FOLDER = '/home/azhar/Main Project/cecb2/user_documents'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
