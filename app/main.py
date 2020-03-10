@@ -178,6 +178,7 @@ def send_message():
     #print(response['queryResult']['fulfillmentMessages'][0]['simpleResponses']['simpleResponses'])
     #fulfillment_text1=json.loads(fulfillment_text)
     #print(response)
+    print(os.environ['GOOGLE_APPLICATION_CREDENTIALS']) 
     if 'outputContexts' in response['queryResult']:
         fulfillment_text=response['queryResult']['fulfillmentText']
         response_text = { "message":  fulfillment_text, "type":"default"}
