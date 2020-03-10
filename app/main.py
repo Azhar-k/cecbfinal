@@ -1,8 +1,8 @@
 
-from flask import Flask 
+from flask import Flask,render_template 
   
 app = Flask(__name__) 
   
 @app.route("/") 
 def home_view(): 
-        return "<link rel="icon" type="image/png" href="" /> <h1>Welcome to Geeks for Geeks</h1>"
+        return render_template('index.html')
