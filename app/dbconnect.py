@@ -6,11 +6,17 @@ import json
 
 
 def addDoc(name,path,key):
-	connection = pymysql.connect(
+	"""connection = pymysql.connect(
     host='localhost',
     user='root',
     password='',
     db='cecb',
+	)"""
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
 	)
 	#name = input("Enter name of form: ")
 	#path = input("Enter path : ")
@@ -30,11 +36,17 @@ def addDoc(name,path,key):
 		connection.close()
 	return status
 def getDocs():
-	connection = pymysql.connect(
+	"""connection = pymysql.connect(
     host='localhost',
     user='root',
     password='',
     db='cecb',
+	)"""
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
 	)
 	rec=''
 	
@@ -64,11 +76,17 @@ def getDocs():
 	return recStr
 
 def getFacultyDetails(department):
-	connection = pymysql.connect(
+	"""connection = pymysql.connect(
     host='localhost',
     user='root',
     password='',
     db='cecb',
+	)"""
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
 	)
 	rec=''
 	department=str(department)
@@ -133,11 +151,17 @@ def getPlacementRecord(year):
 	recStr=recStr[0:len(recStr)-1]	
 	return recStr
 def getYears():
-	connection = pymysql.connect(
+	"""connection = pymysql.connect(
     host='localhost',
     user='root',
     password='',
     db='cecb',
+	)"""
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
 	)
 	years=[]
 	try:
