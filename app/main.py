@@ -5,7 +5,7 @@ import dialogflow
 import requests
 import json
 from google.protobuf.json_format import MessageToJson
-import dbconnect
+from app import dbconnect
 import sys
 import socket
 import urllib
