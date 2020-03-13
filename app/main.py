@@ -22,6 +22,7 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def index():
