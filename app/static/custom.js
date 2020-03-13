@@ -17,11 +17,11 @@ function recordVoice()
         } else {
           interimTranscript += transcript;
         }
-        $('#submittext').val('submit');
+        
       }
 
-      $('#input_message').val(finalTranscript  + interimTranscript ) ;
-      $('#submittext').val('submit');
+      $('#input_message').val(finalTranscript ) ;
+      
     }
     recognition.start();
     $('#submittext').click(function(){
