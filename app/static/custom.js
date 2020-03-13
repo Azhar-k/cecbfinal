@@ -136,7 +136,7 @@ $('#target').on('submit', function(e){
         // loading 
         $('.chat-container').append(`
             <div class="chat-message text-center col-md-2 offset-md-10 bot-message" id="loading">
-                Loading...
+                ...
             </div>
         `)
         var objDiv = document.getElementById("chat-window");
@@ -174,7 +174,7 @@ function paymentResult(data,fname)
     
     $('.chat-container').append(`
         <div id="wait" class="chat-message col-md-5 offset-md-7 bot-message">
-            Loading...
+            ...
         </div>
     `)
     
