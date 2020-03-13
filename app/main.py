@@ -22,7 +22,7 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 #UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
 
 UPLOAD_FOLDER = '/static/user_documents'
-print(str(UPLOAD_FOLDER))
+print(str(FILE_DIR))
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
