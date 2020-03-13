@@ -53,7 +53,7 @@ def saveDoc():
         return jsonify({"message":"File not selected"})
     if request.method == 'POST':  
         f = request.files['myFile']  
-        f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+        f.save(os.path.join(UPLOAD_FOLDER, f.filename))
         status=dbconnect.addDoc(f.filename,f.filename,security_key)
         response_text = { "message":  f.filename , "status":status}
         return jsonify(response_text)
