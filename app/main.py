@@ -20,11 +20,8 @@ CORS(app) # This will enable CORS for all routes
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
-
-#UPLOAD_FOLDER = '/static/user_documents'
-print(str(UPLOAD_FOLDER ))
-
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 @app.route('/')
 def index():
@@ -40,7 +37,21 @@ if __name__ == "__main__":
 def uploadDocView():
     return render_template('uploadDocInterface.html') 
 
+@app.route('/processPayment',methods=['GET'])
+def processPayment():
+    amount=request.args.get('myparam1')
+    formName=request.args.get('formName')
 
+    return render_template('paymentInterface.html',p1=amount,p2=formName)     
+
+
+@app.route('/openPdf',methods=['GET'])
+def openPdf():
+    #PEOPLE_FOLDER = os.path.join('static', 'forms')
+    #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
+    fileName=str(request.args.get('fname'))
+    full_filename="static/forms/"+fileName+".pdf"
+    return render_template('loadFile.html',p1=full_filename)
 
 @app.route('/saveDoc',methods=['POST'])
 def saveDoc():
@@ -58,13 +69,7 @@ def saveDoc():
         response_text = { "message":  f.filename , "status":status}
         return jsonify(response_text)
 
-@app.route('/openPdf',methods=['GET'])
-def openPdf():
-    #PEOPLE_FOLDER = os.path.join('static', 'forms')
-    #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
-    fileName=str(request.args.get('fname'))
-    full_filename="static/forms/"+fileName+".pdf"
-    return render_template('loadFile.html',p1=full_filename) 
+ 
 
 @app.route('/pay',methods=['GET'])
 def pay():
@@ -79,12 +84,6 @@ def is_connected(host='https://fast.com'):
         return False
 
 
-@app.route('/processPayment',methods=['GET'])
-def processPayment():
-    amount=request.args.get('myparam1')
-    formName=request.args.get('formName')
-
-    return render_template('paymentInterface.html',p1=amount,p2=formName)     
 
 @app.route('/webhook', methods=['POST'])
 def webhook(): 
@@ -157,18 +156,6 @@ def placementData(data):
         }
         return jsonify(reply)
 
-def detect_intent_texts(project_id, session_id, text, language_code):
-        session_client = dialogflow.SessionsClient()
-        session = session_client.session_path(project_id, session_id)
-
-        if text:
-            text_input = dialogflow.types.TextInput(
-                text=text, language_code=language_code)
-            query_input = dialogflow.types.QueryInput(text=text_input)
-            response = session_client.detect_intent(
-                session=session, query_input=query_input)
-
-            return response
 
 def detect_intent_texts(project_id, session_id, text, language_code):
         session_client = dialogflow.SessionsClient()
@@ -196,7 +183,6 @@ def send_message():
     response=json.loads(response) 
     #print(response['queryResult']['intent'])
     #print(response['queryResult']['fulfillmentMessages'][0]['simpleResponses']['simpleResponses'])
-    #fulfillment_text1=json.loads(fulfillment_text)
     #print(response)
     if 'outputContexts' in response['queryResult']:
         fulfillment_text=response['queryResult']['fulfillmentText']
