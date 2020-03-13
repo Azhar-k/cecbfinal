@@ -35,7 +35,7 @@ function recordVoice()
 
 function submit_message(message) 
 {
-        if(message.length > 80){
+        if(message.length > 100){
             $( "#loading" ).remove();
             $('.chat-container').append(`
                         <div class="chat-message col-md-5 offset-md-7 bot-message">

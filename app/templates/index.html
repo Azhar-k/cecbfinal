@@ -31,16 +31,16 @@
             </div>
             <ul class="text-dark">
                 <li><a href="{{url_for('index')}}">Home</a></li>
-                <li> 
-                  <button id="uploadDoc" class='btn btn-primary d-none d-lg-block d-md-none'>
+               
+                <li id="uploadId"> 
+                  <button id="uploadDoc" class='btn btn-primary'>
                     Upload my document
                   </button>
-                  <br>
-                  
-                  
                 </li>
-                <li> 
-                  <button id="printDoc" class='btn btn-primary d-none d-lg-block d-md-none'>
+                <br>
+
+                <li id="printId"> 
+                  <button id="printDoc" class='btn btn-primary '>
                     Print my document
                   </button>
                 </li>
@@ -100,6 +100,17 @@
                         $('#sidebar').toggleClass('active');
                     });
                 });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                  if (isMobile) {
+                          $('#printId').hide();
+                  } else {
+                          $('#uploadId').hide();
+                  }
+                });
+                  
         </script>
       </body>
   </html> 
