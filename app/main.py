@@ -166,8 +166,11 @@ def detect_intent_texts(project_id, session_id, text, language_code):
             text_input = dialogflow.types.TextInput(
                 text=text, language_code=language_code)
             query_input = dialogflow.types.QueryInput(text=text_input)
-            response = session_client.detect_intent(
-                session=session, query_input=query_input)
+            try:
+            	response = session_client.detect_intent(
+                	session=session, query_input=query_input)
+            except Exception as e:
+            	return e
 
             return response
 @app.route('/send_message', methods=['POST'])

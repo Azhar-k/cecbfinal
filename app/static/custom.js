@@ -35,7 +35,22 @@ function recordVoice()
 
 function submit_message(message) 
 {
-        $.post( "/send_message", {message: message}, handle_response);
+        if(message.length > 80){
+            $( "#loading" ).remove();
+            $('.chat-container').append(`
+                        <div class="chat-message col-md-5 offset-md-7 bot-message">
+                        please provide short queries...<br/>
+                        
+                        </div> `)
+            var objDiv = document.getElementById("chat-window");
+            objDiv.scrollTop = objDiv.scrollHeight;
+         
+          
+        }
+        else{
+             $.post( "/send_message", {message: message}, handle_response);
+        }
+       
         
         function handle_response(data) 
         {
