@@ -19,10 +19,11 @@ CORS(app) # This will enable CORS for all routes
 #GOOGLE_APPLICATION_CREDENTIALS="cecb-pwfeqw-a9d9b4d233ef.json"
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
+#UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
+
+UPLOAD_FOLDER = '/static/user_documents'
 print(str(UPLOAD_FOLDER))
 
-#UPLOAD_FOLDER = '/home/azhar/eflask/app/user_documents'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
