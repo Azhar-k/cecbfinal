@@ -17,11 +17,19 @@ function recordVoice()
         } else {
           interimTranscript += transcript;
         }
+        $('#submittext').val('submit');
       }
 
       $('#input_message').val(finalTranscript  + interimTranscript ) ;
+      $('#submittext').val('submit');
     }
     recognition.start();
+    $('#submittext').click(function(){
+    
+        recognition.stop();
+        $('#submittext').val('submit');
+    });
+
 }
 
 
@@ -105,8 +113,9 @@ function submit_message(message)
 }
 
 $('#voiceButton').click(function(){
-    
+    $('#submittext').val("recording...");
     recordVoice();
+
 });
 $('#uploadDoc').click(function(){
     
