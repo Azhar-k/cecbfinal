@@ -18,7 +18,7 @@ CORS(app) # This will enable CORS for all routes
 #DIALOGFLOW_PROJECT_ID="cecb-pwfeqw"
 #GOOGLE_APPLICATION_CREDENTIALS="cecb-pwfeqw-a9d9b4d233ef.json"
 #os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
-UPLOAD_FOLDER = '/app/user_documents'
+UPLOAD_FOLDER = '/home/azhar/eflask/app/user_documents'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
@@ -151,6 +151,19 @@ def placementData(data):
             }]}}]
         }
         return jsonify(reply)
+
+def detect_intent_texts(project_id, session_id, text, language_code):
+        session_client = dialogflow.SessionsClient()
+        session = session_client.session_path(project_id, session_id)
+
+        if text:
+            text_input = dialogflow.types.TextInput(
+                text=text, language_code=language_code)
+            query_input = dialogflow.types.QueryInput(text=text_input)
+            response = session_client.detect_intent(
+                session=session, query_input=query_input)
+
+            return response
 
 def detect_intent_texts(project_id, session_id, text, language_code):
         session_client = dialogflow.SessionsClient()

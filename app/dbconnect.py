@@ -92,7 +92,7 @@ def getFacultyDetails(department):
 	department=str(department)
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name,email_id,mobile_number FROM faculties where department='"+department+"'"
+			sql = "SELECT name,email_id,mobile_number FROM faculty where department='"+department+"'"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()
@@ -149,6 +149,7 @@ def getPlacementRecord(year):
 	recStr=str(rec)
 	recStr=recStr.replace("\'", "\"")
 	recStr=recStr[0:len(recStr)-1]	
+	#print(recStr)
 	return recStr
 def getYears():
 	"""connection = pymysql.connect(
@@ -184,6 +185,7 @@ def getYears():
 	#print(years)	
 	return years
 #addForm()
-#getPlacementRecord()
+#getPlacementRecord("2019")
 #getYears()
 #getFacultyDetails("CSE")
+#addDoc('mydoc.pdf','myDoc.pdf','123')
