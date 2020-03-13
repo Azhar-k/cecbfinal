@@ -12,15 +12,18 @@
     <p>
         <input type="button" id="bt" onclick="print()" value="Print PDF" />
     </p>
-</body>
 
-<script>
-    function print() {
+</body>
+    <script>
+        function print(){
         var objFra = document.getElementById('myFrame');
         objFra.contentWindow.focus();
-        objFra.contentWindow.print();
-        window.close();
-        
-    }
-</script>
+        objFra.contentWindow.print(); 
+        //window.close()
+        }
+            // THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
+            
+    </script>
+
+
 </html>

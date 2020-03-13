@@ -52,7 +52,7 @@ def openPdf():
     #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
     fileName=str(request.args.get('fname'))
     full_filename="static/forms/"+fileName+".pdf"
-    return render_template('loadFile.html',p1=full_filename)
+    return render_template('loadFileInterface.html',p1=full_filename)
 
 @app.route('/saveDoc',methods=['POST'])
 def saveDoc():
