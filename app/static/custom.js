@@ -20,14 +20,23 @@ function recordVoice()
         
       }
 
-      $('#input_message').val(finalTranscript ) ;
+      $('#voiceInputId').val(finalTranscript ) ;
       
     }
     recognition.start();
-    $('#submittext').click(function(){
+    $('#stopRec').click(function(){
     
         recognition.stop();
-        $('#submittext').val('submit');
+        $('#stopRec').remove();
+        $('#recText').html("Recorded");
+        $('#startRec').show();
+        
+    });
+    $('#startRec').click(function() {
+         recognition.start();
+         $('#startRec').remove();
+         $('#stopRec').show();
+         $('#recText').html("Recording...");
     });
 
 }
@@ -128,10 +137,30 @@ function submit_message(message)
 }
 
 $('#voiceButton').click(function(){
-    $('#submittext').val("recording...");
-    recordVoice();
+        $('#container').append(`
+            <div class="" id="bannerId">
+                    <div id="banner-container" style="visibility: visible;" class="banner banner-top alert-primary active" role="alert">
+                    <h3 id="recText" class="floatLeft">Recording...</h3>
+                    <button id='stopRec' class="btn btn-outline-danger btn-normal floatLeft">
+                    Stop Recording
+                    </button> 
+                    <button id='startRec' style="" class="btn btn-outline-danger btn-normal floatLeft">
+                    Start Recording
+                    </button>
+                    <textarea id="voiceInputId" class="input"></textarea>
+                    <button class="btn btn-primary" id="addTextBtn">OK</button>
+
+                </div>
+            </div>
+        `)
+        $('#addTextBtn').click(function() {
+            $('#input_message').val($('#voiceInputId').val());
+            $('#bannerId').remove();
+        });
+        recordVoice();
 
 });
+
 $('#uploadDoc').click(function(){
     
     $.ajax({             

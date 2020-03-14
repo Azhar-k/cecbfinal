@@ -26,8 +26,8 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def index():
-    if(is_connected()==False):
-        return "<b>check your internet connection..</b>"
+    #if(is_connected()==False):
+    #    return "<b>check your internet connection..</b>"
     return render_template('index.html')
 
 # run Flask app
