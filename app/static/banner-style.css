@@ -3,13 +3,14 @@
             
                 position: absolute;
                 z-index: 15000;
-                padding: .75rem 1.25rem;
+                padding-top: 20px;
+                padding-left:60px;
                 margin-bottom: 1rem;
                 border: 1px solid transparent;
                 border-radius: .25rem;
                 display: none;
-                width: 480px;
-                height: 250px;
+                width: 450px;
+                height: 150px;
             }
 
             .banner.active {
@@ -24,7 +25,7 @@
 
             }
 
-            #recbtn{
+            #stopRec{
                 margin-left: 10px;
             }
             .floatLeft{
@@ -33,7 +34,6 @@
             #addTextBtn{
                 width: 70px;
                 height: 40px;
-                margin-top: 0px;
-                float: right;
+                margin-left:20px;
             }
     

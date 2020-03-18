@@ -147,14 +147,17 @@ $('#voiceButton').click(function(){
         $('#chat-window').append(`
             <div class="" id="bannerId">
                     <div id="banner-container"  class="banner alert-primary active" role="alert">
-                    <h3 id="recText" class="floatLeft">Recording...</h3>
+                    <h4 id="recText" class="floatLeft">Recording...</h4>
+
                     <button id='stopRec' class="btn btn-outline-danger btn-normal floatLeft">
                     Stop Recording
                     </button> 
-                    <button id='startRec' style="visibility:hiddden;margin-left:5px" class="btn btn-outline-danger btn-normal floatLeft">
+                    <button id='startRec' style="visibility:hiddden;margin-left:5px" class="btn btn-outline-danger btn-normal">
                     Start Recording
                     </button>
-                    <textarea id="voiceInputId" class=""></textarea>
+                    <br>
+                    <br>
+                    <textarea class="floatLeft" id="voiceInputId"></textarea>
                     <button class="btn btn-primary" id="addTextBtn">OK</button>
 
                 </div>
