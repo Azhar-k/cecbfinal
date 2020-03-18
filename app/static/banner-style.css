@@ -1,5 +1,6 @@
 
             .banner {
+            
                 position: absolute;
                 z-index: 15000;
                 padding: .75rem 1.25rem;
@@ -9,57 +10,20 @@
                 display: none;
                 width: 480px;
                 height: 250px;
-                margin-left:390px;
-                margin-top:60px;
             }
 
             .banner.active {
                 display: block;
             }
 
-            .banner-bottom {
-                left: 0;
-                right: 0;
-                bottom: 10px;
-            }
-
-            .banner-top {
-                left: 0;
-                right: 0;
-                top: 10px;
-            }
-
-            .banner-right {
-                right: 10px;
-                bottom: 10%;
-                min-height: 10vh;
-            }
-
-            .banner-left {
-                left: 10px;
-                bottom: 10%;
-                min-height: 10vh;
-            }
 
             .alert-primary {
                 color: red;
                 background-color: white;
-                border-color: red;
+                border-color: black;
 
             }
 
-            .banner-close {
-                position: absolute;
-                right: 1.5%;
-            }
-
-            .banner-close::after {
-                position: absolute;
-                right: 0;
-                top: 40%;
-                content: 'X';
-                color: #69f;
-            }
             #recbtn{
                 margin-left: 10px;
             }

@@ -1,9 +1,45 @@
 import pymysql
 import json
+import random 
+import string 
 
 #test.hello()
+def getRandom():
+	# Generate a random string 
+	# with 8 characters. 
 
-
+	random_num = ''.join([random.choice(string.ascii_letters 
+			+ string.digits) for n in range(8)])  
+	return random_num
+def getUniqueId():
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
+	)
+	idList=[]
+	try:
+		with connection.cursor() as cursor:
+			sql = "SELECT unique_id FROM user_documents"
+			try:
+				cursor.execute(sql)
+				result = cursor.fetchall()
+				for row in result:
+					
+					idList.append(row[0])					
+					
+			except Exception as e:
+				#print("Oops! Something wrong")
+				print("database error occured..."+e)
+		connection.commit()
+	finally:
+		connection.close()
+	while (True):
+		
+		uniqueId=getRandom()
+		if uniqueId not in idList:
+			return uniqueId
 
 def addDoc(name,path,key):
 	"""connection = pymysql.connect(
@@ -18,14 +54,14 @@ def addDoc(name,path,key):
     password='c49f1880',
     db='heroku_8e6c81ecf6d2f59',
 	)
-	#name = input("Enter name of form: ")
-	#path = input("Enter path : ")
 	status=False
+	unique_id=getUniqueId();
 	try:
 		with connection.cursor() as cursor:
-			sql = "INSERT INTO user_documents (`name`, `path`,`security_key`) VALUES (%s, %s,%s)"
+			sql = "INSERT INTO user_documents (`name`, `path`,`unique_id`) VALUES (%s, %s,%s)"
 			try:
-				cursor.execute(sql, (name, path, key))
+
+				cursor.execute(sql, (name, path,unique_id))
 				status=True
 				print("document added successfully")
 			except Exception as e:
@@ -34,7 +70,44 @@ def addDoc(name,path,key):
 		connection.commit()
 	finally:
 		connection.close()
-	return status
+	
+	response={ "status":status,"unique_id":unique_id}
+	return response
+def checkDocId(doc_id):
+
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
+	)
+	temprec={}
+	try:
+		with connection.cursor() as cursor:
+			sql = "SELECT name FROM user_documents where unique_id='"+doc_id+"'"
+			try:
+				cursor.execute(sql)
+				result = cursor.fetchall()
+				if(len(result)==0):
+					temprec['name']="not found"
+					temprec['available']="false"	
+				else:
+
+					for row in result:
+					
+						temprec['name']=str(row[0])
+						temprec['available']="true"				
+					
+			except Exception as e:
+				#print("Oops! Something wrong")
+						
+				print("database error occured..."+str(e))
+		connection.commit()
+	finally:
+		connection.close()
+	return temprec
+
+
 def getDocs():
 	"""connection = pymysql.connect(
     host='localhost',
@@ -48,11 +121,11 @@ def getDocs():
     password='c49f1880',
     db='heroku_8e6c81ecf6d2f59',
 	)
-	rec=''
+	docList=[]
 	
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name FROM user_documents"
+			sql = "SELECT name,unique_id FROM user_documents"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()
@@ -61,17 +134,18 @@ def getDocs():
 				for row in result:
 					temprec={}
 					temprec['name']=str(row[0])
-					rec=rec+str(temprec)+','					
-					#print(str(row[0]) + "\t\t" + row[1] + "\t\t\t\t\t" + str(row[2]))
+					temprec['security_key']=str(row[1])
+					docList.append(temprec)					
+					
 			except Exception as e:
 				#print("Oops! Something wrong")
-				print(e)
+				print("database error occured..."+e)
 		connection.commit()
 	finally:
 		connection.close()
-	recStr=str(rec)
+	recStr=str(docList)
 	recStr=recStr.replace("\'", "\"")
-	recStr=recStr[0:len(recStr)-1]	
+	#recStr=recStr[0:len(recStr)-1]	
 	print(recStr)
 	return recStr
 
@@ -189,3 +263,5 @@ def getYears():
 #getYears()
 #getFacultyDetails("CSE")
 #addDoc('mydoc.pdf','myDoc.pdf','123')
+#getDocs();
+#print(getUniqueId())

@@ -27,17 +27,22 @@ function recordVoice()
     $('#stopRec').click(function(){
     
         recognition.stop();
-        $('#stopRec').remove();
+        $('#stopRec').hide();
         $('#recText').html("Recorded");
         $('#startRec').show();
         
     });
     $('#startRec').click(function() {
          recognition.start();
-         $('#startRec').remove();
+         $('#startRec').hide();
          $('#stopRec').show();
          $('#recText').html("Recording...");
     });
+     $('#addTextBtn').click(function() {
+        recognition.stop();
+            $('#input_message').val($('#voiceInputId').val());
+            $('#bannerId').remove();
+        });
 
 }
 
@@ -104,12 +109,14 @@ function submit_message(message)
                 else if (data.message[0][0].type=="printForm") 
                 {
                     formName=data.message[0][1].name;
+                    formName=formName+".pdf"
                     $('.chat-container').append(`
                     <div class="chat-message col-md-5 offset-md-7 bot-message">
                     Provide Payment
                     </div> `)
 
-                    popup('/processPayment?myparam1=2&formName='+formName,'Payment',700,400);
+
+                    popup('/processPayment?myparam1=2&formName='+formName+'&path=forms','Payment',700,400);
                 }
                 else if (data.message[0][0].type=="notFound") 
                 {
@@ -137,14 +144,14 @@ function submit_message(message)
 }
 
 $('#voiceButton').click(function(){
-        $('#container').append(`
+        $('#chat-window').append(`
             <div class="" id="bannerId">
-                    <div id="banner-container" style="visibility: visible;" class="banner banner-top alert-primary active" role="alert">
+                    <div id="banner-container"  class="banner banner-top alert-primary active" role="alert">
                     <h3 id="recText" class="floatLeft">Recording...</h3>
                     <button id='stopRec' class="btn btn-outline-danger btn-normal floatLeft">
                     Stop Recording
                     </button> 
-                    <button id='startRec' style="" class="btn btn-outline-danger btn-normal floatLeft">
+                    <button id='startRec' style="visibility:hiddden;margin-left:5px" class="btn btn-outline-danger btn-normal floatLeft">
                     Start Recording
                     </button>
                     <textarea id="voiceInputId" class="input"></textarea>
@@ -153,15 +160,12 @@ $('#voiceButton').click(function(){
                 </div>
             </div>
         `)
-        $('#addTextBtn').click(function() {
-            $('#input_message').val($('#voiceInputId').val());
-            $('#bannerId').remove();
-        });
+        $('#startRec').hide();
         recordVoice();
 
 });
 
-$('#uploadDoc').click(function(){
+/*$('#uploadDoc').click(function(){
     
     $.ajax({             
         url: '/uploadDocView',        
@@ -171,7 +175,10 @@ $('#uploadDoc').click(function(){
                     //document.write(data);   
                     jQuery('#container').html(data);   
                 });    
-}); 
+}); */
+
+
+
 $('#target').on('submit', function(e){
         e.preventDefault();
         const input_message = $('#input_message').val()
@@ -240,7 +247,7 @@ function paymentResult(data,fname)
         </div>
     `)*/
     $( "#wait" ).remove();
-    popup('/openPdf?fname='+fname,'Printing',9000,600);
+    popup('/openPdf?fname='+fname+'&path=forms','Printing',9000,600);
     
     $('.chat-container').append(`
         <div class="chat-message col-md-5 offset-md-7 bot-message">

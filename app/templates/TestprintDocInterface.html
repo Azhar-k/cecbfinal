@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<style type="text/css">
+		#docList{
+			margin-top: 20px;
+		}
+		#printDocBtn{
+			margin-left: 30px;
+			float:left;
+		}
+		#inputKey{
+			width: 320px;
+			float: left;
+		}
+		
+	</style>
+</head>
+<body>
+	<div id='docList' class="container h-100">
+		<table class="table table-bordered table-hover" >
+			<tbody>
+				{% for user_doc in user_doc_list %}
+				<tr>
+					<td id="docName">{{user_doc.name}}</td>
+					<td>
+						<form class="needs-validation" id="printDocForm" name="printDocForm" novalidate>
+							<input id="inputKey" name="inputKey"  type="password" placeholder="Enter security key to print the document" class="form-control input" required>
+							<div class="invalid-feedback">
+        						<h5> Enter a secuirity key!</h5>
+							</div>	
+							<input id="printDocBtn" type="submit" class="btn btn-primary" value="Print">
+						</form>
+					</td>
+					
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+		
+	</div>
+
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	
+	(function() {
+		'use strict';
+		window.addEventListener('load', function() {
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.getElementsByClassName('needs-validation');
+		// Loop over them and prevent submission
+		var validation = Array.prototype.filter.call(forms, function(form) {
+		form.addEventListener('submit', function(event) {
+		if (form.checkValidity() === false) {
+		event.preventDefault();
+		event.stopPropagation();
+		}
+		form.classList.add('was-validated');
+		}, false);
+		});
+		}, false);
+		})();
+</script>
+<script type="text/javascript">
+	$('#printDocForm').on('submit', function(e){
+		console.log("submitted")
+        const DocName=$('#docName').html();
+        //
+    	$('#inputKey').val();
+    	popup('/processPayment?myparam1=2&formName='+DocName+'&path=user_documents','Payment',700,400);
+
+    });
+ 	function popup(url, title, width, height) { 
+    var left = (screen.width / 2) - (width / 2);
+    var top = (screen.height / 2) - (height / 2);
+    var options = '';
+    options += ',width=' + width; 
+    options += ',height=' + height; options += ',top=' + top; options += ',left=' + left; 
+    return window.open(url, title, options); 
+
+	} 
+	function paymentResult(data,dname) {
+		window.paymentDatas=data;
+  		window.dname=dname;
+  		if(data=="payment successfull...")
+		{
+		    
+		 popup('/openPdf?fname='+dname+'&path=user_documents','Printing',9000,600);
+		  
+		}
+	}
+</script>
+</html>

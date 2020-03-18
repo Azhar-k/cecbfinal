@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html>
-   <head>
+{% extends 'index.html' %}
+
+{% block head %}
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       
-      <style>
-           
-      </style>
-   </head>
-   <body>
-      
+{% endblock %}
+{% block body %}
       <!--<div id="container"  class="banner banner-top alert-primary active" role="alert">-->
       <div id="container" class="">
          <form id='myform' enctype="multipart/form-data" method="post" >
@@ -57,9 +53,11 @@
               <div id="uploadSuccessMessage">
                 <br>
                 <h4>Success</h4>
+                <h3 style="color:red;">${response.unique_id}</h3>
+                <h4>please note this ID</h4>
               </div>
               `);
-               console.log(response)
+               console.log(response.unique_id)
                $('#security_key').val("");
               
             },
@@ -81,6 +79,4 @@
 
         
       </script>
-      
-   </body>
-</html>
+{% endblock %}

@@ -36,7 +36,11 @@ if __name__ == "__main__":
 
 @app.route('/uploadDocView')
 def uploadDocView():
-    return render_template('uploadDocInterface.html') 
+	return render_template('uploadDocInterface.html') 
+
+@app.route('/printDocView')
+def printDocView():
+	return render_template('printDocInterface.html') 
 
 @app.route('/processPayment',methods=['GET'])
 def processPayment():
@@ -51,8 +55,18 @@ def openPdf():
     #PEOPLE_FOLDER = os.path.join('static', 'forms')
     #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
     fileName=str(request.args.get('fname'))
-    full_filename="static/forms/"+fileName+".pdf"
+    path=str(request.args.get('path'))
+    full_filename="static/"+path+"/"+fileName
     return render_template('loadFileInterface.html',p1=full_filename)
+
+
+@app.route('/checkDocId',methods=['POST'])
+def checkDocId():
+	doc_id=request.form['doc_id']
+	reply=dbconnect.checkDocId(doc_id)
+	print(reply)
+	return jsonify(reply)
+
 
 @app.route('/saveDoc',methods=['POST'])
 def saveDoc():
@@ -67,7 +81,7 @@ def saveDoc():
         f = request.files['myFile']  
         f.save(os.path.join(UPLOAD_FOLDER, f.filename))
         status=dbconnect.addDoc(f.filename,f.filename,security_key)
-        response_text = { "message":  f.filename , "status":status}
+        response_text = { "message":  f.filename , "status":status['status'],"unique_id":status['unique_id']}
         return jsonify(response_text)
 
  

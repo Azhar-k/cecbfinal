@@ -15,8 +15,11 @@
         <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="icon" type="image/png" href="" />
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='banner-style.css') }}">
+      
         <title>College Helper</title>
+        {% block head %}
+          <link rel="stylesheet" href="{{ url_for('static', filename='banner-style.css') }}">
+        {% endblock %}
       </head>
 
       <body >
@@ -34,15 +37,20 @@
             <ul class="text-dark">
                 <li><a href="{{url_for('index')}}">Home</a></li>
                 <li id="uploadId"> 
-                  <button id="uploadDoc" class='btn btn-primary'>
-                    Upload my document
-                  </button>
+                  <a href="{{url_for('uploadDocView')}}">
+                    <button id="uploadDoc" class='btn btn-primary'>
+                      Upload my document
+                    </button>
+                  </a>
                 </li>
-                <br>
+                
                 <li id="printId"> 
-                  <button id="printDoc" class='btn btn-primary '>
-                    Print my document
-                  </button>
+                  <a href="{{url_for('printDocView')}}">
+                    <button id="printDoc" class='btn btn-primary '>
+                      Print my document
+                    </button>
+                  </a>
+                  
                 </li>
             </ul>
           </nav>
@@ -62,6 +70,7 @@
               
 
               <!--main chat box-->
+              {% block body %}
               <div class="row align-items-center h-100" >
                 <div class="col-md-8 col-sm-12 ">              
                   <div class="col-md-8 col-sm-12 mx-auto" >
@@ -85,6 +94,8 @@
                   </div>
                 </div>
               </div>
+
+              {% endblock %}
             </div>
             </main>
           </div>
@@ -120,6 +131,7 @@
                 });
                   
         </script>
-        
+      
+      
       </body>
   </html> 
