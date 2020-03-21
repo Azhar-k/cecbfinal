@@ -1,31 +1,4 @@
-{% extends 'index.html' %}
-
-{% block head %}
-	
-	<link rel="stylesheet" href="{{ url_for('static', filename='print-doc.css') }}">
-
-{% endblock %}
-
-{% block body %}
-
-	<div id="printDocContainer" class="">
-		<h3>Enter the Document ID here</h3>
-		<div class="">
-			<form id="printDocForm">
-				<input type="password" class="form-control" id="uniqueDocField" name="uniqueDocField">
-				<input type="submit" class="btn btn-primary" id="submitBtn" name="submitBtn" value="Print">
-			</form>
-		</div>
-		<div id="replyDiv" >
-			
-		</div>
-	</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<script src="{{ url_for('static', filename='Main.js')}}"></script>
-<script type="text/javascript">
-	$('#printDocForm').submit(function(e){
+$('#printDocForm').submit(function(e){
 
 		$('#submitBtn').val("...");
 		$('#replyDiv').append(`
@@ -104,5 +77,3 @@
 		  
 		}
 	}
-</script>
-{% endblock %}
