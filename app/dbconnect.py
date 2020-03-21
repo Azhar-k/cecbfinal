@@ -41,7 +41,7 @@ def getUniqueId():
 		if uniqueId not in idList:
 			return uniqueId
 
-def addDoc(name,path,key):
+def addDoc(name,path):
 	"""connection = pymysql.connect(
     host='localhost',
     user='root',
@@ -108,7 +108,7 @@ def checkDocId(doc_id):
 	return temprec
 
 
-def getDocs():
+def getForms():
 	"""connection = pymysql.connect(
     host='localhost',
     user='root',
@@ -121,11 +121,11 @@ def getDocs():
     password='c49f1880',
     db='heroku_8e6c81ecf6d2f59',
 	)
-	docList=[]
+	formList=[]
 	
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name,unique_id FROM user_documents"
+			sql = "SELECT name FROM forms"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()
@@ -134,8 +134,8 @@ def getDocs():
 				for row in result:
 					temprec={}
 					temprec['name']=str(row[0])
-					temprec['security_key']=str(row[1])
-					docList.append(temprec)					
+					
+					formList.append(temprec)					
 					
 			except Exception as e:
 				#print("Oops! Something wrong")
@@ -143,10 +143,8 @@ def getDocs():
 		connection.commit()
 	finally:
 		connection.close()
-	recStr=str(docList)
+	recStr=str(formList)
 	recStr=recStr.replace("\'", "\"")
-	#recStr=recStr[0:len(recStr)-1]	
-	print(recStr)
 	return recStr
 
 def getFacultyDetails(department):
@@ -263,5 +261,5 @@ def getYears():
 #getYears()
 #getFacultyDetails("CSE")
 #addDoc('mydoc.pdf','myDoc.pdf','123')
-#getDocs();
+#getForms();
 #print(getUniqueId())

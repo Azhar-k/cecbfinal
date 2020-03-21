@@ -28,7 +28,9 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 def index():
     #if(is_connected()==False):
     #    return "<b>check your internet connection..</b>"
-    return render_template('index.html')
+    formList=dbconnect.getForms();
+    formList=json.loads(formList)
+    return render_template('index.html',formList=formList)
 
 # run Flask app
 if __name__ == "__main__":
@@ -36,18 +38,22 @@ if __name__ == "__main__":
 
 @app.route('/uploadDocView')
 def uploadDocView():
-	return render_template('uploadDocInterface.html') 
+	formList=dbconnect.getForms();
+	formList=json.loads(formList)
+	return render_template('uploadDocInterface.html',formList=formList) 
 
 @app.route('/printDocView')
 def printDocView():
-	return render_template('printDocInterface.html') 
+	formList=dbconnect.getForms();
+	formList=json.loads(formList)
+	return render_template('printDocInterface.html',formList=formList) 
 
 @app.route('/processPayment',methods=['GET'])
 def processPayment():
-    amount=request.args.get('myparam1')
+    amount=request.args.get('amount')
     formName=request.args.get('formName')
 
-    return render_template('paymentInterface.html',p1=amount,p2=formName)     
+    return render_template('paymentInterface.html',amount=amount,form_name=formName)     
 
 
 @app.route('/openPdf',methods=['GET'])
@@ -64,7 +70,6 @@ def openPdf():
 def checkDocId():
 	doc_id=request.form['doc_id']
 	reply=dbconnect.checkDocId(doc_id)
-	print(reply)
 	return jsonify(reply)
 
 
@@ -73,14 +78,14 @@ def saveDoc():
     if 'myFile' not in request.files:
         return jsonify({"message":"File not reached"})
     file = request.files['myFile']
-    security_key=request.form['security_key']
+    #security_key=request.form['security_key']
     
     if file.filename == '':
         return jsonify({"message":"File not selected"})
     if request.method == 'POST':  
         f = request.files['myFile']  
         f.save(os.path.join(UPLOAD_FOLDER, f.filename))
-        status=dbconnect.addDoc(f.filename,f.filename,security_key)
+        status=dbconnect.addDoc(f.filename,f.filename)
         response_text = { "message":  f.filename , "status":status['status'],"unique_id":status['unique_id']}
         return jsonify(response_text)
 

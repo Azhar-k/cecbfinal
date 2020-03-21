@@ -29,29 +29,46 @@
           <!--navigation bar-->
           <nav id="sidebar"   >
             <div class="sidebar-header">
-              <h4>
+              <h3>
                 <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
                   CECB
-              </h4>
+              </h3>
             </div>
             <ul class="text-dark">
-                <li><a href="{{url_for('index')}}">Home</a></li>
-                <li id="uploadId"> 
-                  <a href="{{url_for('uploadDocView')}}">
-                    <button id="uploadDoc" class='btn btn-primary'>
-                      Upload my document
-                    </button>
+                <li class="nav-item"><a class="nav-link" href="{{url_for('index')}}">Home</a></li>
+                <li class="nav-item" id="uploadId"> 
+                  <a id="uploadDoc" class="nav-link" href="{{url_for('uploadDocView')}}">
+                      
+                    Upload my document
+                    
                   </a>
                 </li>
                 
-                <li id="printId"> 
-                  <a href="{{url_for('printDocView')}}">
-                    <button id="printDoc" class='btn btn-primary '>
+                <li id="printId" class="nav-item"> 
+                  <a id="printDoc" class="nav-link" href="{{url_for('printDocView')}}">
+                   
                       Print my document
-                    </button>
-                  </a>
                   
+                  </a>
+                
                 </li>
+                <li><h3 class="sidebar-header" id="qp">Quick Print<h3> </li>
+                <li class="nav-item">
+                  <table>
+                    <tbody>
+                      {% for form in formList %}
+                      <tr>
+                        <td>{{form.name}}.pdf</td>
+                        <td><a class="nav-link" href="#"><button onclick="quickPrint('{{form.name}}')" style="width: 60px;" class=" btn btn-normal btn-primary">Print</button></a></td>
+                        
+                      </tr>
+                      {% endfor %}                    
+                    </tbody>
+                  </table>
+                 
+                </li>
+                
+
             </ul>
           </nav>
 

@@ -116,7 +116,7 @@ function submit_message(message)
                     </div> `)
 
 
-                    popup('/processPayment?myparam1=2&formName='+formName+'&path=forms','Payment',700,400);
+                    popup('/processPayment?amount=1&formName='+formName+'&path=forms','Payment',700,400);
                 }
                 else if (data.message[0][0].type=="notFound") 
                 {
@@ -142,7 +142,11 @@ function submit_message(message)
 
 
 }
-
+function quickPrint(name) {
+    console.log(name);
+    name=name+".pdf";
+    popup('/processPayment?amount=1&formName='+name+'&path=forms','Payment',700,400);
+}
 $('#voiceButton').click(function(){
         $('#chat-window').append(`
             <div class="" id="bannerId">
