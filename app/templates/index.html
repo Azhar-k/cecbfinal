@@ -82,6 +82,8 @@
               </button>
             </nav>
             <main style="padding-bottom:10px;">
+
+
             <div id="container" class="container h-100">
 
               
@@ -131,17 +133,22 @@
         <script src="{{ url_for('static', filename='custom.js')}}"></script>
         <script>
                 $(document).ready(function () {
+
                     $('.dropdown-toggle').dropdown();
+                   
                     $('#sidebarCollapse').on('click', function () {
                         $('#sidebar').toggleClass('active');
                     });
+
                 });
+
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
                   var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
                   if (isMobile) {
-                          $('#printId').hide();
+                          //$('#printId').hide();
+                           $('#sidebar').toggleClass('active');
                   } else {
                           //$('#uploadId').hide();
                   }
