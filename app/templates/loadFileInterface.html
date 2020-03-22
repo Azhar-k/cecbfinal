@@ -3,25 +3,41 @@
     <title>Print PDF using inline iFrame</title>
 </head>
 <body>
-    <p>{{p1}}</p>
     <iframe 
         src="{{p1}}" id="myFrame" 
         frameborder="0" style="border:0;" 
         width="500" height="500">
     </iframe>
     <p>
-        <input type="button" id="bt" onclick="print()" value="Print PDF" />
+        <input type="button" id="bt" onclick="print()" value="Print" />
     </p>
-
 </body>
     <script>
+        
         function print(){
-        var objFra = document.getElementById('myFrame');
-        objFra.contentWindow.focus();
-        objFra.contentWindow.print(); 
-        //window.close()
+            /*var objFra = document.getElementById('myFrame');
+            objFra.contentWindow.focus();
+            objFra.contentWindow.print()*/
+        
+             
+            //window.close()
+        
+    
+        var frame = document.getElementById('myFrame');;
+        var external_doc = new Blob(['<html><body><iframe src="{{p1}}" id="mFrame" frameborder="0" style="border:0;" width="500" height="500"></iframe></body></html>'], {
+            type: 'text/html'
+            });
+            frame.onload = function() {
+                  try {
+                    this.contentWindow && this.contentWindow.print();
+                    return;
+                  } catch (e) {}
+                  console.error('in a protective iframe?');
+                };
+            frame.src = URL.createObjectURL(external_doc);
+            //document.body.appendChild(frame);
         }
-            // THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
+      // THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
             
     </script>
 

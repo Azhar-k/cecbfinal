@@ -11,6 +11,7 @@ import socket
 import urllib
 from flask_cors import CORS
 
+
 app = Flask(__name__)
 
 CORS(app) # This will enable CORS for all routes
@@ -62,8 +63,13 @@ def openPdf():
     #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
     fileName=str(request.args.get('fname'))
     path=str(request.args.get('path'))
-    full_filename="static/"+path+"/"+fileName
-    return render_template('loadFileInterface.html',p1=full_filename)
+
+    if(path=="forms"):
+   		full_filename="static/"+path+"/"+fileName
+   		return render_template('loadFileInterface.html',p1=full_filename)
+    if(path=="user_documents"):
+    	full_filename="https://cecb2020.000webhostapp.com/user_documents/"+fileName
+    	return render_template('loadFileInterface.html',p1=full_filename)
 
 
 @app.route('/checkDocId',methods=['POST'])
@@ -73,8 +79,8 @@ def checkDocId():
 	return jsonify(reply)
 
 
-@app.route('/saveDoc',methods=['POST'])
-def saveDoc():
+@app.route('/upDoc',methods=['POST'])
+def upDoc():
     if 'myFile' not in request.files:
         return jsonify({"message":"File not reached"})
     file = request.files['myFile']
@@ -88,6 +94,14 @@ def saveDoc():
         status=dbconnect.addDoc(f.filename,f.filename)
         response_text = { "message":  f.filename , "status":status['status'],"unique_id":status['unique_id']}
         return jsonify(response_text)
+
+@app.route('/saveDoc',methods=['POST'])
+def saveDoc():
+	if request.method == 'POST':
+		fname=request.form['file_name']
+		status=dbconnect.addDoc(fname,fname)
+		response_text = { "message":  fname , "status":status['status'],"unique_id":status['unique_id']}
+		return jsonify(response_text)
 
  
 

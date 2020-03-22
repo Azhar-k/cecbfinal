@@ -54,7 +54,7 @@ def addDoc(name,path):
     password='c49f1880',
     db='heroku_8e6c81ecf6d2f59',
 	)
-	status=False
+	status="false"
 	unique_id=getUniqueId();
 	try:
 		with connection.cursor() as cursor:
@@ -62,7 +62,7 @@ def addDoc(name,path):
 			try:
 
 				cursor.execute(sql, (name, path,unique_id))
-				status=True
+				status="true"
 				print("document added successfully")
 			except Exception as e:
 				print(e)
