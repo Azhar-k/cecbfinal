@@ -34,7 +34,7 @@ $('#printDocForm').submit(function(e){
 	                `)
     			$('#inputKey').val();
     			DocName=response.name;
-    			popup('/processPayment?amount=1&formName='+DocName+'&path=user_documents','Payment',700,400);
+    			popup('/processPayment?amount='+response.amount+'&formName='+DocName+'&path=user_documents','Payment',700,400);
     			}
     			else{
 
@@ -79,8 +79,9 @@ $('#printDocForm').submit(function(e){
 		  
 		}
 	}
-    function quickPrint(name) {
-    console.log(name);
+    function quickPrint(name,amount) {
+    console.log(amount);
     name=name+".pdf";
-    popup('/processPayment?amount=1&formName='+name+'&path=forms','Payment',700,400);
+    popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
+}
 }

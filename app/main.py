@@ -64,7 +64,7 @@ def openPdf():
     #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
     fileName=str(request.args.get('fname'))
     path=str(request.args.get('path'))
-    
+
     if(path=="forms"):
    		full_filename="static/"+path+"/"+fileName
    		return render_template('loadFileInterface.html',p1=full_filename)
@@ -100,7 +100,8 @@ def upDoc():
 def saveDoc():
 	if request.method == 'POST':
 		fname=request.form['file_name']
-		status=dbconnect.addDoc(fname,fname)
+		amount=request.form['amount']
+		status=dbconnect.addDoc(fname,fname,amount)
 		response_text = { "message":  fname , "status":status['status'],"unique_id":status['unique_id']}
 		return jsonify(response_text)
 
@@ -149,9 +150,10 @@ def facultyDetails(data):
 
 def printForm(data):
     formName=data['queryResult']['parameters']['forms']
-
+    amount=str(dbconnect.getAmount(formName))
+    print("amount is"+amount)
     reply = {
-                "fulfillmentText":'[[{"type":"printForm"},{"name":"'+formName+'"}]]',
+                "fulfillmentText":'[[{"type":"printForm"},{"name":"'+formName+'"},{"amount":"'+amount+'"}]]',
 
                 "fulfillmentMessages": [{"simpleResponses": {"simpleResponses": [   {
                 "displayText": "provide payment"
@@ -235,7 +237,7 @@ def send_message():
         if(response['queryResult']['intent']['displayName']=="placement statistics" or response['queryResult']['intent']['displayName']=="print forms" or response['queryResult']['intent']['displayName']=="faculty details"):
             fulfillment_text=response['queryResult']['fulfillmentText']
             fulfillment_text=json.loads(fulfillment_text)
-            print(fulfillment_text)
+            #print(fulfillment_text)
             response_text = { "message":  fulfillment_text, "type":"custom"}
             return jsonify(response_text)  
         else: 

@@ -41,7 +41,7 @@ def getUniqueId():
 		if uniqueId not in idList:
 			return uniqueId
 
-def addDoc(name,path):
+def addDoc(name,path,amount):
 	"""connection = pymysql.connect(
     host='localhost',
     user='root',
@@ -58,10 +58,10 @@ def addDoc(name,path):
 	unique_id=getUniqueId();
 	try:
 		with connection.cursor() as cursor:
-			sql = "INSERT INTO user_documents (`name`, `path`,`unique_id`) VALUES (%s, %s,%s)"
+			sql = "INSERT INTO user_documents (`name`, `path`,`unique_id`,`amount`) VALUES (%s, %s,%s,%s)"
 			try:
 
-				cursor.execute(sql, (name, path,unique_id))
+				cursor.execute(sql, (name, path,unique_id,amount))
 				status="true"
 				print("document added successfully")
 			except Exception as e:
@@ -84,7 +84,7 @@ def checkDocId(doc_id):
 	temprec={}
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name FROM user_documents where unique_id='"+doc_id+"'"
+			sql = "SELECT name,amount FROM user_documents where unique_id='"+doc_id+"'"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()
@@ -96,6 +96,7 @@ def checkDocId(doc_id):
 					for row in result:
 					
 						temprec['name']=str(row[0])
+						temprec['amount']=str(row[1])
 						temprec['available']="true"				
 					
 			except Exception as e:
@@ -125,7 +126,7 @@ def getForms():
 	
 	try:
 		with connection.cursor() as cursor:
-			sql = "SELECT name FROM forms"
+			sql = "SELECT name,amount FROM forms"
 			try:
 				cursor.execute(sql)
 				result = cursor.fetchall()
@@ -134,6 +135,7 @@ def getForms():
 				for row in result:
 					temprec={}
 					temprec['name']=str(row[0])
+					temprec['amount']=str(row[1])
 					
 					formList.append(temprec)					
 					
@@ -146,6 +148,41 @@ def getForms():
 	recStr=str(formList)
 	recStr=recStr.replace("\'", "\"")
 	return recStr
+
+def getAmount(fname):
+	"""connection = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='',
+    db='cecb',
+	)"""
+	connection = pymysql.connect(
+    host='us-cdbr-iron-east-04.cleardb.net',
+    user='b0b545128ae92d',
+    password='c49f1880',
+    db='heroku_8e6c81ecf6d2f59',
+	)
+	amount="3";
+	
+	try:
+		with connection.cursor() as cursor:
+			sql = "SELECT amount FROM forms where name='"+fname+"'"
+			try:
+				cursor.execute(sql)
+				result = cursor.fetchall()
+				#print("Id\t\t name")
+				#print("----------------------")
+				for row in result:
+					
+					amount=str(row[0])				
+					
+			except Exception as e:
+				#print("Oops! Something wrong")
+				print("database error occured..."+e)
+		connection.commit()
+	finally:
+		connection.close()
+	return amount
 
 def getFacultyDetails(department):
 	"""connection = pymysql.connect(
@@ -263,3 +300,4 @@ def getYears():
 #addDoc('mydoc.pdf','myDoc.pdf','123')
 #getForms();
 #print(getUniqueId())
+#print(getAmount('blank page'))

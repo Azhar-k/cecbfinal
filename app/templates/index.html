@@ -60,7 +60,7 @@
                       {% for form in formList %}
                       <tr>
                         <td>{{form.name}}.pdf</td>
-                        <td><a class="nav-link" href="#"><button onclick="quickPrint('{{form.name}}')" style="width: 60px;" class=" btn btn-normal btn-primary">Print</button></a></td>
+                        <td><a class="nav-link" href="#"><button onclick="quickPrint('{{form.name}}','{{form.amount}}')" style="width: 60px;" class=" btn btn-normal btn-primary">Print</button></a></td>
                         
                       </tr>
                       {% endfor %}                    

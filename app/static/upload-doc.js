@@ -1,5 +1,5 @@
   $('#uploadFile').click(function(e){
-           console.log("clicked")
+           
             /*document.querySelector('#fileUpload').addEventListener('change', event => {
             handleImageUpload(event)
             })*/
@@ -12,6 +12,21 @@
             
             var fd = new FormData();
             var files = $('#fileUpload')[0].files[0];
+            var extension =""+files.type;
+            console.log(extension);
+            var amount=1;
+            if(extension=='application/pdf'){
+              var input = document.getElementById("fileUpload");
+              var reader = new FileReader();
+              reader.readAsBinaryString(input.files[0]);
+              reader.onloadend = function(){
+                  var count = reader.result.match(/\/Type[\s]*\/Page[^s]/g).length;
+                  amount=count;
+                  console.log('Number of Pages:',count );
+              }
+            
+            }
+              
             
             fd.append('myFile',files);
            
@@ -26,7 +41,7 @@
                   console.log(response)
                  
                   if(response.status=='1'){
-                      $.post( "/saveDoc", {file_name: response.fname}, saveDoc_response);
+                      $.post( "/saveDoc", {file_name: response.fname,amount:amount}, saveDoc_response);
                       function saveDoc_response(reply) {
                         if(reply.status=='true'){
                             $('#uploadingMessage').remove();
@@ -100,8 +115,8 @@ function paymentResult(data,dname,path) {
       
     }
 }
-function quickPrint(name) {
-    console.log(name);
+function quickPrint(name,amount) {
+    console.log(amount);
     name=name+".pdf";
-    popup('/processPayment?amount=1&formName='+name+'&path=forms','Payment',700,400);
+    popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
 }

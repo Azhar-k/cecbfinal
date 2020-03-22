@@ -108,6 +108,8 @@ function submit_message(message)
                 }
                 else if (data.message[0][0].type=="printForm") 
                 {
+                    amount=data.message[0][1].amount;
+                    console.log(amount);
                     formName=data.message[0][1].name;
                     formName=formName+".pdf"
                     $('.chat-container').append(`
@@ -116,7 +118,7 @@ function submit_message(message)
                     </div> `)
 
 
-                    popup('/processPayment?amount=1&formName='+formName+'&path=forms','Payment',700,400);
+                    popup('/processPayment?amount='+amount+'&formName='+formName+'&path=forms','Payment',700,400);
                 }
                 else if (data.message[0][0].type=="notFound") 
                 {
@@ -142,10 +144,10 @@ function submit_message(message)
 
 
 }
-function quickPrint(name) {
-    console.log(name);
+function quickPrint(name,amount) {
+    console.log(amount);
     name=name+".pdf";
-    popup('/processPayment?amount=1&formName='+name+'&path=forms','Payment',700,400);
+    popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
 }
 $('#voiceButton').click(function(){
         $('#chat-window').append(`
