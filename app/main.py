@@ -151,7 +151,7 @@ def facultyDetails(data):
 def printForm(data):
     formName=data['queryResult']['parameters']['forms']
     amount=str(dbconnect.getAmount(formName))
-    print("amount is"+amount)
+    print("amount is "+amount)
     reply = {
                 "fulfillmentText":'[[{"type":"printForm"},{"name":"'+formName+'"},{"amount":"'+amount+'"}]]',
 

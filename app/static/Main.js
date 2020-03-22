@@ -108,7 +108,7 @@ function submit_message(message)
                 }
                 else if (data.message[0][0].type=="printForm") 
                 {
-                    amount=data.message[0][1].amount;
+                    amount=data.message[0][2].amount;
                     console.log(amount);
                     formName=data.message[0][1].name;
                     formName=formName+".pdf"
