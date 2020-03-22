@@ -225,10 +225,11 @@ function popup(url, title, width, height) {
     options += ',height=' + height; options += ',top=' + top; options += ',left=' + left; 
     return window.open(url, title, options); 
 } 
-function paymentResult(data,fname)
+function paymentResult(data,fname,path)
 {       
   window.paymentDatas=data;
   window.fname=fname;
+  window.path=path;
   
    $('.chat-container').append(`
         <div class="chat-message col-md-5 offset-md-7 bot-message">
@@ -254,7 +255,8 @@ function paymentResult(data,fname)
         </div>
     `)*/
     $( "#wait" ).remove();
-    popup('/openPdf?fname='+fname+'&path=forms','Printing',9000,600);
+    console.log("clicked"+path);
+    popup('/openPdf?fname='+fname+'&path='+path,'Printing',9000,600);
     
     $('.chat-container').append(`
         <div class="chat-message col-md-5 offset-md-7 bot-message">

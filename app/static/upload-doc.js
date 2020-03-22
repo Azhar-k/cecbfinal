@@ -78,3 +78,30 @@
           
 
         });
+
+ function popup(url, title, width, height) { 
+    var left = (screen.width / 2) - (width / 2);
+    var top = (screen.height / 2) - (height / 2);
+    var options = '';
+    options += ',width=' + width; 
+    options += ',height=' + height; options += ',top=' + top; options += ',left=' + left; 
+    return window.open(url, title, options); 
+
+  }   
+function paymentResult(data,dname,path) {
+    window.paymentDatas=data;
+      window.dname=dname;
+        window.path=path;
+        console.log("clicked");
+      if(data=="payment successfull...")
+    {
+        
+     popup('/openPdf?fname='+dname+'&path='+path,'Printing',9000,600);
+      
+    }
+}
+function quickPrint(name) {
+    console.log(name);
+    name=name+".pdf";
+    popup('/processPayment?amount=1&formName='+name+'&path=forms','Payment',700,400);
+}

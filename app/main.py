@@ -53,8 +53,9 @@ def printDocView():
 def processPayment():
     amount=request.args.get('amount')
     formName=request.args.get('formName')
+    path=request.args.get('path')
 
-    return render_template('paymentInterface.html',amount=amount,form_name=formName)     
+    return render_template('paymentInterface.html',path=path,amount=amount,form_name=formName)     
 
 
 @app.route('/openPdf',methods=['GET'])
@@ -63,11 +64,11 @@ def openPdf():
     #full_filename = os.path.join(PEOPLE_FOLDER, 'GECTCR-WIFI-Student.pdf')
     fileName=str(request.args.get('fname'))
     path=str(request.args.get('path'))
-
+    
     if(path=="forms"):
    		full_filename="static/"+path+"/"+fileName
    		return render_template('loadFileInterface.html',p1=full_filename)
-    if(path=="user_documents"):
+    elif(path=="user_documents"):
     	full_filename="https://cecb2020.000webhostapp.com/user_documents/"+fileName
     	return render_template('loadFileInterface.html',p1=full_filename)
 

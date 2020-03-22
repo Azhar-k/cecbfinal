@@ -84,13 +84,13 @@
     return window.open(url, title, options); 
 
 	} 
-	function paymentResult(data,dname) {
+	function paymentResult(data,dname,path) {
 		window.paymentDatas=data;
   		window.dname=dname;
   		if(data=="payment successfull...")
 		{
 		    
-		 popup('/openPdf?fname='+dname+'&path=user_documents','Printing',9000,600);
+		 popup('/openPdf?fname='+dname+'&path='+path,'Printing',9000,600);
 		  
 		}
 	}
