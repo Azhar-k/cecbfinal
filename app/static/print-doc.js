@@ -84,4 +84,3 @@ $('#printDocForm').submit(function(e){
     name=name+".pdf";
     popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
 }
-}
