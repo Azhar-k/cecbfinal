@@ -144,6 +144,52 @@ function submit_message(message)
 
 
 }
+function paymentResult(data,fname,path)
+{       
+  window.paymentDatas=data;
+  window.fname=fname;
+  window.path=path;
+  
+   $('.chat-container').append(`
+        <div class="chat-message col-md-5 offset-md-7 bot-message">
+            ${window.paymentDatas}
+        </div>
+    `)
+   
+   if(data=="payment successfull...")
+   {
+    
+    $('.chat-container').append(`
+        <div id="wait" class="chat-message col-md-5 offset-md-7 bot-message">
+            ...
+        </div>
+    `)
+    
+    //window.print();
+    
+    $( "#wait" ).remove();
+    /*$('.chat-container').append(`
+        <div class="chat-message col-md-5 offset-md-7 bot-message">
+            ${data}
+        </div>
+    `)*/
+    $( "#wait" ).remove();
+    console.log("clicked"+path);
+    popup('/openPdf?fname='+fname+'&path='+path,'Printing',9000,600);
+    
+    $('.chat-container').append(`
+        <div class="chat-message col-md-5 offset-md-7 bot-message">
+            Finished...
+        </div>
+    `)        
+    
+
+    var objDiv = document.getElementById("chat-window");
+    objDiv.scrollTop = objDiv.scrollHeight;
+   }
+   
+
+}
 function quickPrint(name,amount) {
     console.log(amount);
     name=name+".pdf";
@@ -227,49 +273,4 @@ function popup(url, title, width, height) {
     options += ',height=' + height; options += ',top=' + top; options += ',left=' + left; 
     return window.open(url, title, options); 
 } 
-function paymentResult(data,fname,path)
-{       
-  window.paymentDatas=data;
-  window.fname=fname;
-  window.path=path;
-  
-   $('.chat-container').append(`
-        <div class="chat-message col-md-5 offset-md-7 bot-message">
-            ${window.paymentDatas}
-        </div>
-    `)
-   
-   if(data=="payment successfull...")
-   {
-    
-    $('.chat-container').append(`
-        <div id="wait" class="chat-message col-md-5 offset-md-7 bot-message">
-            ...
-        </div>
-    `)
-    
-    //window.print();
-    
-    $( "#wait" ).remove();
-    /*$('.chat-container').append(`
-        <div class="chat-message col-md-5 offset-md-7 bot-message">
-            ${data}
-        </div>
-    `)*/
-    $( "#wait" ).remove();
-    console.log("clicked"+path);
-    popup('/openPdf?fname='+fname+'&path='+path,'Printing',9000,600);
-    
-    $('.chat-container').append(`
-        <div class="chat-message col-md-5 offset-md-7 bot-message">
-            Finished...
-        </div>
-    `)        
-    
 
-    var objDiv = document.getElementById("chat-window");
-    objDiv.scrollTop = objDiv.scrollHeight;
-   }
-   
-
-}

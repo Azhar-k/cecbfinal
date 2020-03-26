@@ -3,7 +3,8 @@
             /*document.querySelector('#fileUpload').addEventListener('change', event => {
             handleImageUpload(event)
             })*/
-             $('#container').append(`
+            e.preventDefault(); 
+            $('#container').append(`
               <div id="uploadingMessage">
                 <br>
                 <h4>uploading...</h4>

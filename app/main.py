@@ -16,9 +16,7 @@ app = Flask(__name__)
 
 CORS(app) # This will enable CORS for all routes
 
-#DIALOGFLOW_PROJECT_ID="cecb-pwfeqw"
-#GOOGLE_APPLICATION_CREDENTIALS="cecb-pwfeqw-a9d9b4d233ef.json"
-#os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="cecb-pwfeqw-a9d9b4d233ef.json"
+
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -36,6 +34,18 @@ def index():
 # run Flask app
 if __name__ == "__main__":
     app.run() 
+
+@app.route('/admin')
+def adminView():
+	formList=dbconnect.getForms()
+	formList=json.loads(formList)
+
+	plList=dbconnect.getPr()
+	plList=json.loads(plList)
+
+	fdList=dbconnect.getFd()
+	fdList=json.loads(fdList)
+	return render_template('adminInterface.html',form_list=formList,placement_list=plList,faculty_list=fdList) 
 
 @app.route('/uploadDocView')
 def uploadDocView():
@@ -72,6 +82,9 @@ def openPdf():
     	full_filename="https://cecb2020.000webhostapp.com/user_documents/"+fileName
     	return render_template('loadFileInterface.html',p1=full_filename)
 
+@app.route('/pay',methods=['GET'])
+def pay():
+    return "payment successfull..."
 
 @app.route('/checkDocId',methods=['POST'])
 def checkDocId():
@@ -80,7 +93,7 @@ def checkDocId():
 	return jsonify(reply)
 
 
-@app.route('/upDoc',methods=['POST'])
+"""@app.route('/upDoc',methods=['POST'])
 def upDoc():
     if 'myFile' not in request.files:
         return jsonify({"message":"File not reached"})
@@ -94,7 +107,7 @@ def upDoc():
         f.save(os.path.join(UPLOAD_FOLDER, f.filename))
         status=dbconnect.addDoc(f.filename,f.filename)
         response_text = { "message":  f.filename , "status":status['status'],"unique_id":status['unique_id']}
-        return jsonify(response_text)
+        return jsonify(response_text)"""
 
 @app.route('/saveDoc',methods=['POST'])
 def saveDoc():
@@ -106,10 +119,56 @@ def saveDoc():
 		return jsonify(response_text)
 
  
+@app.route('/editPlacement',methods=['POST'])
+def editPlacement():
+    if request.method == 'POST':
+        if (request.form['type']=="add"):
+            cname=request.form['cname']
+            count=request.form['count']
+            year=request.form['year']
+            response_text=dbconnect.addpr(cname,count,year)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
+        elif(request.form['type']=='del'):
+            did=request.form['did']
+            response_text=dbconnect.delpr(did)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
+@app.route('/editFaculty',methods=['POST'])
+def editFaculty():
+    if request.method == 'POST':
+        if(request.form['type']=='add'):
+            fname=request.form['fname']
+            department=request.form['department']
+            email_id=request.form['email']
+            mobile_number=request.form['mnumber']
+            response_text=dbconnect.addfc(fname,department,email_id,mobile_number)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
+        elif(request.form['type']=='del'):
+            did=request.form['did']
+            response_text=dbconnect.delfc(did)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
 
-@app.route('/pay',methods=['GET'])
-def pay():
-    return "payment successfull..."
+@app.route('/editForm',methods=['POST'])
+def editForm():
+    if request.method == 'POST':
+        if(request.form['type']=='add'):
+            name=request.form['name']
+            path=request.form['path']
+            amount=request.form['amount']
+            response_text=dbconnect.addform(name,path,amount)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
+        elif(request.form['type']=='del'):
+            did=request.form['did']
+            response_text=dbconnect.delform(did)
+            #response_text = {"status":status['status'],"responseText":status['response_text']}
+            return jsonify(response_text)
+
+
+
 
 def is_connected(host='https://fast.com'):
     try:

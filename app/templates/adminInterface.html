@@ -1,0 +1,146 @@
+{% extends 'index.html' %}
+
+{% block head %}
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+	<div id="adminContainer" class="container">
+		<h1>Admin Interface</h1>
+		<hr>
+
+		<!--FORMS DIVISION-->
+		<div id="formsDiv" class="container">
+			<h3>Add/Delete forms</h3>
+			<form id="formformadd">
+				<input type="file" placeholder="select file" class="form-control myinput fl" id="formfileinput" name="" >
+				<input type="text" placeholder="Enter form name" class="form-control myinput fl" id="formnameinput" name="" style="margin-left: 30px;">
+				<input type="submit" class="btn btn-primary mybtn" id="formsubmit1" name="" value="Add">
+			</form>
+			<br>
+			<form id="formformdel">
+				<input type="text" placeholder="Enter form id" class="form-control myinput fl" id="formdelid" name="" >
+				<input type="submit" class="btn btn-primary mybtn" id="formsubmit2" name="" value="Delete">
+			</form>
+			<div id="formreplyDiv" ></div>
+			<br>
+			<div>
+				<table style="width: 800px;" class="table table-bordered table-hover" >
+					<thead>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Cost</th>
+					</thead>
+					<tbody>
+						{% for form in form_list %}
+						<tr>
+							<td>{{form.id}}</td>
+							<td>{{form.name}}</td>
+							<td>{{form.amount}}</td>
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<hr>
+
+		<!--PLACEMENT DIVISION-->
+		<div id="placementDiv">
+			<h3>Add/Delete Placement record</h3>
+			<form id="plform">
+				<input type="text" placeholder="Enter company name" class="form-control myinput fl" id="cnameinput" name="" style="">
+				<input type="text" placeholder="Enter the number of recruited students" class="form-control myinput " id="rcountinput" name="" style="margin-left: 30px;">
+				<br>
+				<input type="text" placeholder="Enter the year" class="form-control myinput fl" id="ryearinput" name="" style="">
+
+				<input type="submit" class="btn btn-primary mybtn" id="plsubmit1" name="" value="Add">
+			</form>
+			<br>
+			<form id="plformdel">
+				<input type="text" placeholder="Enter the record id" class="form-control myinput fl" id="pldelid" name="" >
+				<input type="submit" class="btn btn-primary mybtn" id="plsubmit2" name="" value="Delete">
+			</form>
+
+			<div id="plreplyDiv" ></div>
+			<br>
+			<div>
+				<table style="width: 800px;" class="table table-bordered table-hover" >
+					<thead>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Year</th>
+						<th>Number</th>
+					</thead>
+					<tbody>
+						{% for placement in placement_list %}
+						<tr>
+							<td>{{placement.id}}</td>
+							<td>{{placement.name}}</td>
+							<td>{{placement.year}}</td>
+							<td>{{placement.number}}</td>
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<hr>
+
+		<!--FACULTY DIVISION-->
+		<div id="facultyDiv">
+			<h3>Add/Delete faculty details</h3>
+			<form id="fcform">
+				<input type="text" placeholder="Enter name" class="form-control myinput fl" id="fnameinput" name="" >
+				<input type="text" placeholder="Enter department" class="form-control myinput" id="deptinput" name="" style="margin-left: 30px;">
+				<br>
+				<input type="text" placeholder="Enter mobile number" class="form-control myinput fl" id="mnumberinput" name="" style="">
+				<input type="text" placeholder="Enter Email Id" class="form-control myinput fl" id="emailinput" name="" style="margin-left: 30px;">
+
+				<input type="submit" class="btn btn-primary mybtn" id="fcsubmit1" name="" value="Add">
+			</form>
+			<br>
+			<form id="fcformdel">
+				<input type="text" placeholder="Enter faculty id" class="form-control myinput fl" id="fcdelid" name="" >
+				<input type="submit" class="btn btn-primary mybtn" id="" name="" value="Delete">
+			</form>
+
+			<div id="fcreplyDiv" ></div>
+			<br>
+			<div>
+				<table style="width: 800px;" class="table table-bordered table-hover" >
+					<thead>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Department</th>
+						<th>Email ID</th>
+						<th>Mobile number</th>
+					</thead>
+					<tbody>
+						{% for faculty in faculty_list %}
+						<tr>
+							<td>{{faculty.id}}</td>
+							<td>{{faculty.name}}</td>
+							<td>{{faculty.department}}</td>
+							<td>{{faculty.email}}</td>
+							<td>{{faculty.number}}</td>
+							
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+	</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='admin.js')}}"></script>
+
+{% endblock %}
