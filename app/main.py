@@ -1,5 +1,5 @@
  # /index.py
-from flask import Flask, request, jsonify, render_template
+from flask import Flask,flash, request, jsonify, render_template,redirect,session
 import os
 import dialogflow
 import requests
@@ -22,6 +22,7 @@ UPLOAD_FOLDER = os.path.join(FILE_DIR, 'static/user_documents')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+app.secret_key = os.urandom(12)
 
 @app.route('/')
 def index():
@@ -33,19 +34,50 @@ def index():
 
 # run Flask app
 if __name__ == "__main__":
+
+    app.debug = True
     app.run() 
+
+@app.route('/Login', methods=['POST'])
+def do_admin_login():
+    username= request.form['username']
+    password=request.form['password']
+    users={"admin":"password","azhar":"1234"}
+    error="";
+    if username in users:
+        if(users[username]==password):
+            session['logged_in'] = True
+            return adminView()
+        else:
+            error="wrong password!"
+            flash('wrong password!')
+    else:
+        error="user does not exist"
+        flash('user does not exist')
+    return render_template('AdminLogin.html', error=error)
+
+@app.route("/logout")
+def logout():
+    session['logged_in'] = False
+    return adminView()
 
 @app.route('/admin')
 def adminView():
-	formList=dbconnect.getForms()
-	formList=json.loads(formList)
+    if not session.get('logged_in'):
+        formList=dbconnect.getForms()
+        formList=json.loads(formList)
+        return render_template('AdminLogin.html',formList=formList) 
 
-	plList=dbconnect.getPr()
-	plList=json.loads(plList)
+    else:
+    	formList=dbconnect.getForms()
+    	formList=json.loads(formList)
 
-	fdList=dbconnect.getFd()
-	fdList=json.loads(fdList)
-	return render_template('adminInterface.html',form_list=formList,placement_list=plList,faculty_list=fdList) 
+    	plList=dbconnect.getPr()
+    	plList=json.loads(plList)
+
+    	fdList=dbconnect.getFd()
+    	fdList=json.loads(fdList)
+    	return render_template('adminInterface.html',form_list=formList,placement_list=plList,faculty_list=fdList) 
 
 @app.route('/uploadDocView')
 def uploadDocView():
@@ -84,6 +116,7 @@ def openPdf():
 
 @app.route('/pay',methods=['GET'])
 def pay():
+    
     return "payment successfull..."
 
 @app.route('/checkDocId',methods=['POST'])

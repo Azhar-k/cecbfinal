@@ -1,0 +1,31 @@
+{% extends 'index.html' %}
+
+{% block head %}
+	
+	<link rel="stylesheet" href="{{ url_for('static', filename='print-doc.css') }}">
+
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<div class="">
+		<form action="/Login" method="POST" id="loginForm">
+			<h2>Admin Login</h2>
+			<br>
+			<input type="text" name="username" placeholder="Enter user name" id="usernameinput" class="form-control " style="width: 350px;" >
+			<br>
+			<input type="password" name="password" placeholder="Enter password" id="passwordinput" class="form-control" style="width: 350px;" >
+			<br>
+			<input type="submit" value="Login" class="btn btn-primary" name="" id="loginSubmit" style="">
+			<h4>{{error}}</h4>
+		</form>
+	</div>
+</div>
+
+	
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='alogin.js')}}"></script>
+
+{% endblock %}

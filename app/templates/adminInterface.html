@@ -7,13 +7,14 @@
 {% endblock %}
 
 {% block body %}
-
-	<div id="adminContainer" class="container">
+	<div id="adminContainer" style="" class="">
+		
 		<h1>Admin Interface</h1>
 		<hr>
-
+		<a style="position:absolute;right:20px;top:60px;" href="/logout"><button class="btn btn-danger">Logout</button></a>
+		<br>
 		<!--FORMS DIVISION-->
-		<div id="formsDiv" class="container">
+		<div id="formsDiv">
 			<h3>Add/Delete forms</h3>
 			<form id="formformadd">
 				<input type="file" placeholder="select file" class="form-control myinput fl" id="formfileinput" name="" >
