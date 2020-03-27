@@ -43,7 +43,7 @@ def do_admin_login():
     username= request.form['username']
     password=request.form['password']
     users={"admin":"password","azhar":"1234"}
-    error="";
+    error="Something went wrong";
     if username in users:
         if(users[username]==password):
             session['logged_in'] = True
@@ -214,18 +214,31 @@ def is_connected(host='https://fast.com'):
 
 
 @app.route('/webhook', methods=['POST'])
-def webhook(): 
-    data = request.get_json(silent=True,force=True)
-    reply='';
-    if(data['queryResult']['intent']['displayName']=='placement statistics'):
-        reply=placementData(data);
-        return reply;
-    elif(data['queryResult']['intent']['displayName']=='print forms'):
-        reply=printForm(data);
-        return reply;
-    elif(data['queryResult']['intent']['displayName']=='faculty details'):
-        reply=facultyDetails(data);
-        return reply;
+def webhook():
+    try:
+
+        data = request.get_json(silent=True,force=True)
+        reply='';
+        if(data['queryResult']['intent']['displayName']=='placement statistics'):
+            reply=placementData(data);
+            return reply;
+        elif(data['queryResult']['intent']['displayName']=='print forms'):
+            reply=printForm(data);
+            return reply;
+        elif(data['queryResult']['intent']['displayName']=='faculty details'):
+            reply=facultyDetails(data);
+            return reply;
+    except Exception as e:
+        data='{"details":"something went wrong...try agin"}'
+        reply = {
+                    "fulfillmentText":'[[{"type":"notFound"}],'+data+"]",
+
+                    "fulfillmentMessages": [{"simpleResponses": {"simpleResponses": [   {
+                    "displayText": "something went wrong...try agin"
+                    }]}}]
+            }
+        return jsonify(reply)
+
 
 def facultyDetails(data):
     department=data['queryResult']['parameters']['department']
@@ -303,39 +316,48 @@ def detect_intent_texts(project_id, session_id, text, language_code):
             return response
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    if(is_connected()==False):
-        response_text = { "message":  "check your internet connection..", "type":"default"}
-        return jsonify(response_text)
-    message = request.form['message']
-    project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
-    response = detect_intent_texts(project_id, "unique", message, 'en')   
-    #print(fulfillment_text)
-    
-    response=MessageToJson(response)
-    response=json.loads(response) 
-    #print(response['queryResult']['intent'])
-    #print(response['queryResult']['fulfillmentMessages'][0]['simpleResponses']['simpleResponses'])
-    #print(response)
-    if 'outputContexts' in response['queryResult']:
-        fulfillment_text=response['queryResult']['fulfillmentText']
-        response_text = { "message":  fulfillment_text, "type":"default"}
-        return jsonify(response_text)
+    try:
 
-    if(len(response['queryResult']['intent'])==0):
-        fulfillment_text=response['queryResult']['fulfillmentText']
-        response_text = { "message":  fulfillment_text, "type":"default"}
-        return jsonify(response_text)
-    else:
-        if(response['queryResult']['intent']['displayName']=="placement statistics" or response['queryResult']['intent']['displayName']=="print forms" or response['queryResult']['intent']['displayName']=="faculty details"):
-            fulfillment_text=response['queryResult']['fulfillmentText']
-            fulfillment_text=json.loads(fulfillment_text)
-            #print(fulfillment_text)
-            response_text = { "message":  fulfillment_text, "type":"custom"}
-            return jsonify(response_text)  
-        else: 
+        if(is_connected()==False):
+            response_text = { "message":  "check your internet connection..", "type":"default"}
+            return jsonify(response_text)
+        message = request.form['message']
+        project_id = os.getenv('DIALOGFLOW_PROJECT_ID')
+        response = detect_intent_texts(project_id, "unique", message, 'en')   
+        #print(fulfillment_text)
+        
+        response=MessageToJson(response)
+        response=json.loads(response) 
+        #print(response['queryResult']['intent'])
+        #print(response['queryResult']['fulfillmentMessages'][0]['simpleResponses']['simpleResponses'])
+        #print(response)
+        if 'outputContexts' in response['queryResult']:
             fulfillment_text=response['queryResult']['fulfillmentText']
             response_text = { "message":  fulfillment_text, "type":"default"}
             return jsonify(response_text)
+
+        if(len(response['queryResult']['intent'])==0):
+            fulfillment_text=response['queryResult']['fulfillmentText']
+            response_text = { "message":  fulfillment_text, "type":"default"}
+            return jsonify(response_text)
+        else:
+            if(response['queryResult']['intent']['displayName']=="placement statistics" or response['queryResult']['intent']['displayName']=="print forms" or response['queryResult']['intent']['displayName']=="faculty details"):
+                fulfillment_text=response['queryResult']['fulfillmentText']
+                fulfillment_text=json.loads(fulfillment_text)
+                #print(fulfillment_text)
+                response_text = { "message":  fulfillment_text, "type":"custom"}
+                return jsonify(response_text)  
+            else: 
+                fulfillment_text=response['queryResult']['fulfillmentText']
+                response_text = { "message":  fulfillment_text, "type":"default"}
+                return jsonify(response_text)
+    except Exception as e:
+            fulfillment_text="Something went wrong..please try again"
+            response_text = { "message":  fulfillment_text, "type":"default"}
+            return jsonify(response_text)  
+    fulfillment_text="Something went wrong..please try again"
+    response_text = { "message":  fulfillment_text, "type":"default"}
+    return jsonify(response_text)        
 
 
      

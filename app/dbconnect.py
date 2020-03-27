@@ -31,6 +31,7 @@ def addDoc(name,path,amount):
 			except Exception as e:
 				print(e)
 
+
 		connection.commit()
 	finally:
 		connection.close()
@@ -64,6 +65,8 @@ def addpr(cname,count,year):
 			except Exception as e:
 				
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:
@@ -98,6 +101,8 @@ def delpr(pid):
 			except Exception as e:
 				
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:
@@ -133,6 +138,8 @@ def addfc(name,department,email_id,mobile_number):
 			except Exception as e:
 				
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:
@@ -168,6 +175,8 @@ def delfc(fid):
 			except Exception as e:
 				
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:
@@ -202,6 +211,8 @@ def addform(name,path,amount):
 			except Exception as e:
 				print(e)
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:
@@ -236,6 +247,8 @@ def delform(fid):
 			except Exception as e:
 				
 				retext=str(e)
+				response={ "status":status,"responseText":retext}
+				return response
 
 		connection.commit()
 	finally:

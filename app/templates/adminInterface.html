@@ -2,16 +2,27 @@
 
 {% block head %}
 	
+	<style> 
+    .left{ 
+        float:left; 
+    } 
+      
+    .right{ 
+        float:right; 
+    } 
+    </style> 
+	
 	<link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
-
 {% endblock %}
 
 {% block body %}
 	<div id="adminContainer" style="" class="">
-		
-		<h1>Admin Interface</h1>
+		<div class="clearfix">
+			<h1 class="left">Admin Interface</h1>
+			
+			<a class="right"  href="/logout"><button class="btn btn-danger right" >Logout</button></a>
+		</div>
 		<hr>
-		<a style="position:absolute;right:20px;top:60px;" href="/logout"><button class="btn btn-danger">Logout</button></a>
 		<br>
 		<!--FORMS DIVISION-->
 		<div id="formsDiv">
