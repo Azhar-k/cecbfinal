@@ -6,5 +6,5 @@
  PyMySQL==0.9.3
  gunicorn
  flask-cors
- 
+ boto3
 
