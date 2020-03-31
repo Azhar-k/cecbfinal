@@ -20,7 +20,7 @@ function recordVoice()
         
       }
 
-      $('#voiceInputId').val(finalTranscript ) ;
+      $('#voiceInputId').val(interimTranscript) ;
       
     }
     recognition.start();

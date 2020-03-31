@@ -14,12 +14,22 @@
     </p>
 </body>
     <script>
+        function newprint() {
+            popup = window.open('https://cecb2020.000webhostapp.com/user_documents/1585648204_wifi.pdf');
+            popup.focus(); //required for IE
+            popup.print();
+             /*popup = window.open();
+            popup.document.write('<image src="{{p1}}" id="myFrame" frameborder="0" style="border:0;" width="500" height="500"></image> ');
+            popup.focus(); //required for IE
+            popup.print();*/
+        
+        }
         
         function print(){
             var objFra = document.getElementById('myFrame');
             objFra.contentWindow.focus();
             objFra.contentWindow.print();
-        
+           
              
             //window.close()
         

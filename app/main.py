@@ -11,6 +11,8 @@ import socket
 import urllib
 import boto3
 from flask_cors import CORS
+from botocore.client import Config
+
 
 
 app = Flask(__name__)
@@ -25,14 +27,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = os.urandom(12)
 
-@app.route('/sign_s3/')
+"""@app.route('/sign_s3/')
 def sign_s3():
   S3_BUCKET = os.environ.get('S3_BUCKET')
-
+  print(S3_BUCKET)
   file_name = request.args.get('file_name')
   file_type = request.args.get('file_type')
 
-  s3 = boto3.client('s3')
+  s3 = boto3.client('s3',region_name='ap-south-1',config=Config(signature_version='s3v4'))
 
   presigned_post = s3.generate_presigned_post(
     Bucket = S3_BUCKET,
@@ -44,11 +46,13 @@ def sign_s3():
     ],
     ExpiresIn = 3600
   )
+  print(file_name)
+  print(presigned_post)
 
   return json.dumps({
     'data': presigned_post,
-    'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET, file_name)
-  })
+    'url': 'https://%s.s3.amazonaws.com/%s' % (S3_BUCKET,file_name)
+  })"""
 
 @app.route('/')
 def index():

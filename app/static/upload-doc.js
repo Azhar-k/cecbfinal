@@ -3,7 +3,7 @@
             /*document.querySelector('#fileUpload').addEventListener('change', event => {
             handleImageUpload(event)
             })*/
-            e.preventDefault(); 
+            
             $('#container').append(`
               <div id="uploadingMessage">
                 <br>
@@ -73,7 +73,7 @@
                       $('#container').append(`
                       <div id="uploadSuccessMessage">
                         <br>
-                        <h4>Sorry..upload failed..try again${response.msg}</h4>
+                        <h4>Sorry..upload failed..try again ${response.msg}</h4>
                       </div>
                       `);
                   }
