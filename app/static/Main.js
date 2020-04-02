@@ -9,6 +9,7 @@ function recordVoice()
     recognition.continuous = true;
 
     recognition.onresult = (event) => {
+    //console.log('You said: ', event.results[0][0].transcript);
       let interimTranscript = '';
       for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
         let transcript = event.results[i][0].transcript;

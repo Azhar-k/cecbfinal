@@ -141,7 +141,7 @@ function uploadFile(file, s3Data, url){
   xhr.send(postData);
 }
 
- function popup(url, title, width, height) { 
+function popup(url, title, width, height) { 
     var left = (screen.width / 2) - (width / 2);
     var top = (screen.height / 2) - (height / 2);
     var options = '';
