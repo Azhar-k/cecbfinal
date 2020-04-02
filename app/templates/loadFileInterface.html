@@ -4,19 +4,19 @@
 
     </head>
     <body>
-        {{p1}}
+
+      
+        <p>
+            <input type="button" id="bt" onclick="imgprint('{{p1}}')" value="Print" />
+        </p>
         <iframe 
             src="{{p1}}" id="myFrame" 
             frameborder="0" style="border:0;" 
             width="500" height="500">
         </iframe>
-
-        <p>
-            <input type="button" id="bt" onclick="newprint()" value="Print" />
-        </p>
+        
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
           <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
          <script type="text/javascript">
             var array = "{{p1}}".split(".");
             var ftype= array[array.length-1];
@@ -24,20 +24,33 @@
             if(ftype=="pdf")
             {
                 $('#bt').remove();
+                
+                
             } 
 
         </script>
+
+
     </body>
     <script>
-        function newprint() {
-            
-            popup = window.open();
-            popup.document.write('<img src="{{p1}}" id="myFrame" width="500" height="500"></img> ');
-            popup.focus(); //required for IE
-            popup.print();
-            popup.close();
-        
-        }
+        function imgprint(imagePath) {
+    var width = $(window).width() * 0.9;
+    var height = $(window).height() * 0.9;
+    var content = '<!DOCTYPE html>' + 
+                  '<html>' +
+                  '<head><title></title></head>' +
+                  '<body onload="window.focus(); window.print(); window.close();">' + 
+                  '<img src="' + imagePath + '" style="width: 100%;" />' +
+                  '</body>' +
+                  '</html>';
+    var options = "toolbar=no,location=no,directories=no,menubar=no,scrollbars=yes,width=" + width + ",height=" + height;
+    var printWindow = window.open('', 'print', options);
+    printWindow.document.open();
+    printWindow.document.write(content);
+    printWindow.document.close();
+    printWindow.focus();
+}
+
         
         function print(){
             var objFra = document.getElementById('myFrame');
