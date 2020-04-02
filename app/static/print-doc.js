@@ -75,7 +75,7 @@ $('#printDocForm').submit(function(e){
   		if(data=="payment successfull...")
 		{
 		    
-		 popup('/openPdf?fname='+dname+'&path='+path,'Printing',9000,600);
+		 popup('/openPdf?fname='+dname+'&path='+path,'Printing',700,400);
 		  
 		}
 	}
