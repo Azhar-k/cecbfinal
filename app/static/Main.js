@@ -176,7 +176,7 @@ function paymentResult(data,fname,path)
     `)*/
     $( "#wait" ).remove();
     console.log("clicked"+path);
-    popup('/openPdf?fname='+fname+'&path='+path,'Printing',9000,600);
+    popup('/openPdf?fname='+fname+'&path='+path,'Printing',700,400);
     
     $('.chat-container').append(`
         <div class="chat-message col-md-5 offset-md-7 bot-message">
