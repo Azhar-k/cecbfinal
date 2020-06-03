@@ -138,8 +138,9 @@ def openPdf():
     path=str(request.args.get('path'))
 
     if(path=="forms"):
-   		full_filename="static/"+path+"/"+fileName
-   		return render_template('loadFileInterface.html',p1=full_filename)
+        #full_filename="static/"+path+"/"+fileName
+        full_filename="https://cecb2020.000webhostapp.com/forms/"+fileName
+        return render_template('loadFileInterface.html',p1=full_filename)
     elif(path=="user_documents"):
     	full_filename="https://cecb2020.000webhostapp.com/user_documents/"+fileName
     	return render_template('loadFileInterface.html',p1=full_filename)

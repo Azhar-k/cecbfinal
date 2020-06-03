@@ -75,12 +75,16 @@ $('#printDocForm').submit(function(e){
   		if(data=="payment successfull...")
 		{
 		    
-		 popup('/openPdf?fname='+dname+'&path='+path,'Printing',700,400);
+		 //popup('/openPdf?fname='+dname+'&path='+path,'Printing',700,400);
+         window.location.replace('/openPdf?fname='+dname+'&path='+path) ;
 		  
 		}
 	}
     function quickPrint(name,amount) {
     console.log(amount);
-    name=name+".pdf";
+    name=name;
     popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
 }
+
+//SZGtIjbA wifi.pdf
+//1hNRXCpZ couple.png

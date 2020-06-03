@@ -112,7 +112,7 @@ function submit_message(message)
                     amount=data.message[0][2].amount;
                     console.log(amount);
                     formName=data.message[0][1].name;
-                    formName=formName+".pdf"
+                    formName=formName
                     $('.chat-container').append(`
                     <div class="chat-message col-md-5 offset-md-7 bot-message">
                     Provide Payment
@@ -176,8 +176,8 @@ function paymentResult(data,fname,path)
     `)*/
     $( "#wait" ).remove();
     console.log("clicked"+path);
-    popup('/openPdf?fname='+fname+'&path='+path,'Printing',700,400);
-    
+    //popup('/openPdf?fname='+fname+'&path='+path,'Printing',700,400);
+    window.location.replace('/openPdf?fname='+fname+'&path='+path) ;
     $('.chat-container').append(`
         <div class="chat-message col-md-5 offset-md-7 bot-message">
             Finished...
@@ -193,7 +193,7 @@ function paymentResult(data,fname,path)
 }
 function quickPrint(name,amount) {
     console.log(amount);
-    name=name+".pdf";
+    name=name;
     popup('/processPayment?amount='+amount+'&formName='+name+'&path=forms','Payment',700,400);
 }
 $('#voiceButton').click(function(){

@@ -1,11 +1,15 @@
-<html>
-    <head>
-        <title>Print PDF using inline iFrame</title>
 
-    </head>
-    <body>
 
-      
+{% extends 'index.html' %}
+
+{% block head %}
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='print-doc.css') }}">
+
+{% endblock %}
+
+{% block body %}
+        <p>{{p1}}</p>
         <p>
             <input type="button" id="bt" onclick="imgprint('{{p1}}')" value="Print" />
         </p>
@@ -29,9 +33,6 @@
             } 
 
         </script>
-
-
-    </body>
     <script>
         function imgprint(imagePath) {
     var width = $(window).width() * 0.9;
@@ -78,6 +79,10 @@
       // THIS VB SCRIP REMOVES THE PRINT DIALOG BOX AND PRINTS TO YOUR DEFAULT PRINTER
             
     </script>
+  
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='alogin.js')}}"></script>
 
-</html>
+{% endblock %}
