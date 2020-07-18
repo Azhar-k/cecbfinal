@@ -15,7 +15,7 @@ from botocore.client import Config
 
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='',static_folder='templates/')
 
 CORS(app) # This will enable CORS for all routes
 
@@ -66,7 +66,8 @@ def index():
 if __name__ == "__main__":
 
     app.debug = True
-    app.run() 
+    app.run()
+
 
 @app.route('/Login', methods=['POST'])
 def do_admin_login():
@@ -77,43 +78,71 @@ def do_admin_login():
     if username in users:
         if(users[username]==password):
             session['logged_in'] = True
-            return adminView()
+            return admin()
         else:
             error="wrong password!"
             flash('wrong password!')
     else:
         error="user does not exist"
         flash('user does not exist')
-    return render_template('AdminLogin.html', error=error)
+    return render_template('login.html', error=error)
 
 @app.route("/logout")
 def logout():
     session['logged_in'] = False
-    return adminView()
+    return admin()
 
 @app.route('/admin')
-def adminView():
+def admin():
     if not session.get('logged_in'):
         formList=dbconnect.getForms()
         formList=json.loads(formList)
-        return render_template('AdminLogin.html',formList=formList) 
+        return render_template('login.html',formList=formList)
 
     else:
-    	formList=dbconnect.getForms()
-    	formList=json.loads(formList)
+    	plstat=dbconnect.getstat()
+    	plstat=json.loads(plstat)
 
-    	plList=dbconnect.getPr()
-    	plList=json.loads(plList)
+        #count_out=dbconnect.getcount()
+        #count_out=json.loads(count_out)
+    	return render_template('admin/index3.html',placement_stat=plstat)
 
-    	fdList=dbconnect.getFd()
-    	fdList=json.loads(fdList)
-    	return render_template('adminInterface.html',form_list=formList,placement_list=plList,faculty_list=fdList) 
+@app.route("/forms")
+def forms():
+    formList = dbconnect.getForms()
+    formList = json.loads(formList)
+    return render_template('admin/Formstab.html',form_list=formList)
+
+@app.route("/faculty")
+def faculty():
+    fdList = dbconnect.getFd()
+    fdList = json.loads(fdList)
+    return render_template('admin/Facultytab.html',faculty_list=fdList)
+
+@app.route("/placement")
+def placement():
+    plList = dbconnect.getPr()
+    plList = json.loads(plList)
+    return render_template('admin/Placementtab.html',placement_list=plList)
+
+
+@app.route("/updateforms")
+def updateforms():
+    return render_template('admin/Updateforms.html')
+
+@app.route("/updatefaculty")
+def updatefaculty():
+    return render_template('admin/Updatefaculty.html')
+
+@app.route("/updateplacement")
+def updateplacement():
+    return render_template('admin/Updateplacement.html')
 
 @app.route('/uploadDocView')
 def uploadDocView():
 	formList=dbconnect.getForms();
 	formList=json.loads(formList)
-	return render_template('uploadDocInterface.html',formList=formList) 
+	return render_template('uploadDocInterface.html',formList=formList)
 
 @app.route('/printDocView')
 def printDocView():
@@ -182,7 +211,6 @@ def saveDoc():
 		response_text = { "message":  fname , "status":status['status'],"unique_id":status['unique_id']}
 		return jsonify(response_text)
 
- 
 @app.route('/editPlacement',methods=['POST'])
 def editPlacement():
     if request.method == 'POST':
@@ -230,9 +258,6 @@ def editForm():
             response_text=dbconnect.delform(did)
             #response_text = {"status":status['status'],"responseText":status['response_text']}
             return jsonify(response_text)
-
-
-
 
 def is_connected(host='https://fast.com'):
     try:
@@ -388,7 +413,8 @@ def send_message():
             return jsonify(response_text)  
     fulfillment_text="Something went wrong..please try again"
     response_text = { "message":  fulfillment_text, "type":"default"}
-    return jsonify(response_text)        
+    return jsonify(response_text)
+
 
 
      

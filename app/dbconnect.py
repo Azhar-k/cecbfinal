@@ -397,6 +397,79 @@ def getAmount(fname):
 		connection.close()
 	return amount
 
+def getstat():
+	"""connection = pymysql.connect(
+    host='localhost',
+    user='root',
+    password='',
+    db='cecb',
+	)"""
+	connection = pymysql.connect(
+		host='us-cdbr-iron-east-04.cleardb.net',
+		user='b0b545128ae92d',
+		password='c49f1880',
+		db='heroku_8e6c81ecf6d2f59',
+	)
+	plstat = []
+
+	try:
+		with connection.cursor() as cursor:
+			sql = "SELECT count,year FROM placement_statistics"
+			try:
+				cursor.execute(sql)
+				result = cursor.fetchall()
+				# print("Id\t\t name")
+				# print("----------------------")
+				for row in result:
+					temprec = {}
+					temprec['number'] = str(row[0])
+					temprec['year'] = str(row[1])
+
+					plstat.append(temprec)
+
+			except Exception as e:
+				# print("Oops! Something wrong")
+				print("database error occured..." + e)
+		connection.commit()
+	finally:
+		connection.close()
+	recStr = str(plstat)
+	recStr = recStr.replace("\'", "\"")
+	return recStr
+#def getcount():
+#	"""connection = pymysql.connect(
+#    host='localhost',
+#   user='root',
+#    password='',
+#    db='cecb',
+#	)"""
+#	connection = pymysql.connect(
+#		host='us-cdbr-iron-east-04.cleardb.net',
+#		user='b0b545128ae92d',
+#		password='c49f1880',
+#		db='heroku_8e6c81ecf6d2f59',
+#	)
+#	count;
+
+#	try:
+#		with connection.cursor() as cursor:
+#			sql = "SELECT SUM(count) FROM placement_statitics where name = 2020"
+#			try:
+#				cursor.execute(sql)
+#				result = cursor.fetchall()
+#				# print("Id\t\t name")
+#				# print("----------------------")
+#				for row in result:
+#					count = str(row[0])
+
+#			except Exception as e:
+#				# print("Oops! Something wrong")
+#				print("database error occured..." + e)
+#		connection.commit()
+#	finally:
+#		connection.close()
+#	return count
+
 def getForms():
 	"""connection = pymysql.connect(
     host='localhost',

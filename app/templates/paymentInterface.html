@@ -1,24 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+	<style>
+	body { margin-top:20px; }
+	.panel-title {display: inline;font-weight: bold;}
+	.checkbox.pull-right { margin: 0; }
+	.pl-ziro { padding-left: 0px; }
+	</style>
 	<title>Payment</title>
 </head>
 <body>
-	<h1>Choose Your Payment Method</h1>
-  <p id='path' style="">{{path}}</p>
-	<p>Requested Document :</p><p id='fname'>{{form_name}}</p>
-	<p>Pay rs {{amount}}</p> 
-	<div id="payment-container">
-		 <form id="popupForm"> 
-		 	<input type="text" name="amount">
-		 	<input type="submit" name="">
-		 </form>
-	</div>
-	<br><br>
-	<div id="container"></div>
-	<script type="text/javascript">
-		
-	</script>
+<div align="center"><b>
+<h3 style="display:inline;font-weight: bold;">Requested Document : </h3>
+<h3 id='fname' style="display:inline;font-weight: bold;">{{form_name}}</h3>
+</b></div>
+<br><p id='path' hidden>{{path}}</p><br>
+	<div class="container" id="payment-container">
+    <div class="row">
+        <div class="col-xs-12 col-md-4">
+            <div clasEnter message...
+s="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Payment Details
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" id="popupForm">
+						<div class="form-group">
+							<label for="cardNumber">Amount:</label>
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Ente The Amount" name="amount" required autofocus />
+								<span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+							</div>
+							<br/>
+							<ul class="nav nav-pills nav-stacked">
+								<li class="active"><a><span class="badge pull-right"><span>&#8377;</span>{{amount}}</span> Final Payment</a></li>
+							</ul>
+							<br/>
+						</div>
+						<input type="submit" class="btn btn-success btn-lg btn-block" value="pay">
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 <script>
 /**
@@ -294,6 +326,6 @@ function processPayment(paymentData) {
   src="https://pay.google.com/gp/p/js/pay.js"
   onload="onGooglePayLoaded()"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="{{ url_for('static', filename='payment.js')}}"></script>
+	<script src="assets/js/payment.js"></script>
 </body>
 </html>

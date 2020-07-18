@@ -1,161 +1,165 @@
 <!doctype html>
   <html lang="en">
-      <head>
+    <head>
+          <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+          <title>College helper</title>
+
+          <!-- Bootstrap core CSS -->
+          <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+          <!-- Additional CSS Files -->
+          <link rel="stylesheet" href="assets/css/fontawesome.css">
+          <link rel="stylesheet" href="assets/css/templatemo-style.css">
+          <link rel="stylesheet" href="assets/css/owl.css">
+          <link rel="stylesheet" href="assets/css/style.css">
           <!-- Required meta tags -->
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <meta charset="utf-8">
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="icon" type="image/png" href="" />
-        <link rel="stylesheet" href="{{ url_for('static', filename='main-style.css') }}">
-      
-        <title>College Helper</title>
-        {% block head %}
-          <link rel="stylesheet" href="{{ url_for('static', filename='banner-style.css') }}">
+          <meta name="description" content="">
+          <meta name="author" content="">
+          <meta charset="UTF-8">
+          <meta http-equiv="X-UA-Compatible" content="ie=edge">
+          <meta charset="utf-8">
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <!-- Bootstrap CSS -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+          <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+          <link rel="icon" type="image/png" href="" />
+          <!--<link rel="stylesheet" href="{{ url_for('static', filename='banner-style.css') }}"> -->
+          <link rel="stylesheet" href="assets/css/chat.css">
+          <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+          <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    </head>
+    <body class="is-preload">
+    <div id="wrapper">
+      <!-- Main -->
+        <div id="main">
+           <div class="inner">
+           <!-- Header -->
+           <header id="header"><div class="logo"><a href="{{url_for('index')}}" style="text-decoration:none;">SaHay</a></div></header>
+           <!-- Banner -->
+            <section class="main-banner" data-aos="zoom-in">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                      <div class="banner-content">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="banner-caption" style="border-radius: 25px 0px 25px 0px;">
+                            {% block body %}
+                            <div id="bodybox">
 
-        {% endblock %}
-      </head>
+                              <!--chat section-->
 
-      <body >
-
-        <div class="wrapper">
-
-          <!--navigation bar-->
-          <nav id="sidebar"   >
-            <div class="sidebar-header">
-              <h3>
-                <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
-                  CECB
-              </h3>
-            </div>
-            <ul class="text-dark">
-                <li class="nav-item"><a class="nav-link" href="{{url_for('index')}}">Home</a></li>
-                <li class="nav-item" id="uploadId"> 
-                  <a id="uploadDoc" class="nav-link" href="{{url_for('uploadDocView')}}">
-                      
-                    Upload my document
-                    
-                  </a>
-                </li>
-                
-                <li id="printId" class="nav-item"> 
-                  <a id="printDoc" class="nav-link" href="{{url_for('printDocView')}}">
-                   
-                      Print my document
-                  
-                  </a>
-                
-                </li>
-                <li><h3 class="sidebar-header" id="qp">Quick Print<h3> </li>
-                <li class="nav-item">
-                  <table>
-                    <tbody>
-                      {% for form in formList %}
-                      <tr>
-                        <td>{{form.name}}</td>
-                        <td><a class="nav-link" href="#"><button onclick="quickPrint('{{form.name}}','{{form.amount}}')" style="width: 60px;" class=" btn btn-normal btn-primary">Print</button></a></td>
-                        
-                      </tr>
-                      {% endfor %}                    
-                    </tbody>
-                  </table>
-                 
-                </li>
-                
-
-            </ul>
-          </nav>
+				                      <div id="chat-window" class="chat-container" style="overflow: auto; max-height: 50vh" ></div>
+				                                                    <!-- chat messages -->
+				                      <form id="target">
+				                        <div class="input-group">
+				                          <i id="voiceButton" class="fa fa-microphone  text-danger " style="position:absolute;z-index:10;bottom:13px;right:12px;cursor:pointer;font-size: 24px;">
+				                          </i>
+				                          <input class="input form-control" type="text" value="" placeholder="Enter message..." id="input_message"/>
+				                        </div>
+				                        <div class="clearfix mt-2">
+				                          <div class="text-right"><input id='submittext' type="submit" class="btn btn-outline-danger btn-normal"></div>
+				                        </div>
+				                      </form>
+				              <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+				              <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+				              <script type="text/javascript">$('#input_message').focus();</script>
+				              <script type="text/javascript">
+				              	$("#input_message").keyup(function(event) {
+									if (event.keyCode === 13) {
+											 $("#submittext").click();
+											 }
+									});
+							  </script>
+                              <!-- chat section end-->  
 
 
-          <div id="content">
-            <!--navigation menu button-->
-            <nav class="navbar navbar-expand-lg  navbar-dark " style="">
-              <button type="button" id="sidebarCollapse" class="btn btn-danger">
-                <i class="fa fa-bars"></i> Menu
-                  <span></span>
-              </button>
-            </nav>
-            <main style="padding-bottom:10px;">
 
 
-            <div id="container" class="container h-100" style="">
+                            <div class="primary-button"></div>
+                        </div >
 
-              
+                          <!--popup-->
+                          <div class="pw" id="payment">
 
-              <!--main chat box-->
-              {% block body %}
-              <div class="row align-items-center h-100" >
-                <div class="col-md-8 col-sm-12 ">              
-                  <div class="col-md-8 col-sm-12 mx-auto" >
-                    <div class="h-100 justify-content-center">
-                      <div id="chat-window" class="chat-container" style="overflow: auto; max-height: 80vh" >
-                              <!-- chat messages -->
-                      </div>
-                      <form id="target">
-                        <div class="input-group">
-                          <i id="voiceButton" class="fa fa-microphone  text-danger " style="position:absolute;z-index:10;bottom:13px;right:12px;cursor:pointer;font-size: 24px;">
-                          </i>
-                          <input class="input form-control" type="text" value="" placeholder="Enter message..." id="input_message"/>
-                        </div>
-                        <div class="clearfix mt-2">
-                          <div class="text-right">
-                            <input id='submittext' type="submit" class="btn btn-outline-danger btn-normal">
+                              
+                              
+                             <div class="primary-button"></div>
+                              <!-- popup section end-->
+
                           </div>
+
                         </div>
-                      </form>
+                            {% endblock %}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-                </script>
-                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
-                </script>
-                <script type="text/javascript">
-                  $('#input_message').focus();
-                </script>
-                <script src="{{ url_for('static', filename='Main.js')}}"></script>
-              {% endblock %}
-            </div>
-            </main>
+            </section>
           </div>
-
         </div>
-        <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.min.js"></script>
-       
-        <script>
-                $(document).ready(function () {
 
-                    $('.dropdown-toggle').dropdown();
-                   
-                    $('#sidebarCollapse').on('click', function () {
-                        $('#sidebar').toggleClass('active');
-                    });
+      <!-- Sidebar -->
+        <div id="sidebar">
+          <div class="inner">
+            <!--side Header -->
+            <section id="search" class="alt">
+            <div class="container d-flex h-100 align-items-center" >
+              <a href="#header" style="text-decoration:none;"><h2 class="text-white-50 mx-auto mt-2 mb-5">SERVICES</h2></a>
+            </div>
+            </section>
+            <!--side Menu -->
+            <nav id="menu">
+              <ul>
+                <li><a id="uploadDoc" href="{{url_for('uploadDocView')}}" style="text-decoration:none;">Upload My Document</a></li>
+                <li><a id="printDoc" href="{{url_for('printDocView')}}" style="text-decoration:none;">Print My document</a></li>
+                <li>
+                  <span class="opener">Quick print</span>
+                  <ul>
+                    <li>
+                      <table>
+                         <tbody>
+                         {% for form in formList %}
+                          <tr>
+                              <td>{{form.name}}</td>
+                              <td><a class="nav-link" href="#" style="text-decoration:none;"><button onclick="quickPrint('{{form.name}}','{{form.amount}}')" style="width: 60px;" class=" btn btn-normal btn-primary">Print</button></a></td>
+                          </tr>
+                         {% endfor %}
+                         </tbody>
+                      </table>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
 
-                });
+            <!-- Footer -->
+            <footer id="footer">
+              <p class="copyright">Copyright &copy; 2019 Company Name
+              <br>Designed by <a rel="nofollow" href="#" style="text-decoration:none;">KTU project</a></p>
+            </footer>
+          </div>
+        </div>
+    </div>
 
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                  var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-                  if (isMobile) {
-                          //$('#printId').hide();
-                           $('#sidebar').toggleClass('active');
-                  } else {
-                          //$('#uploadId').hide();
-                  }
-                });
-                  
-        </script>
-      
-      
-      </body>
-  </html> 
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/transition.js"></script>
+    <script src="assets/js/owl-carousel.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script src="assets/js/Main.js"></script>
+	<script>
+	    AOS.init({
+	  duration: 1200,
+	})
+	</script>
+
+</body>
+</html>

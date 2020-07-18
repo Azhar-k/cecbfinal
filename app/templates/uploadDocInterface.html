@@ -1,22 +1,54 @@
 {% extends 'index.html' %}
 
 {% block head %}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-      
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- JQUERY -->
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+
+    <!-- ALERT -->
+
+    <link href="alert/css/alert.css" rel="stylesheet" />
+    <link href="alert/themes/default/theme.css" rel="stylesheet" />
+    <script src="alert/js/alert.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 {% endblock %}
+
 {% block body %}
       <!--<div id="container"  class="banner banner-top alert-primary active" role="alert">-->
       <div id="container" class="">
-         <form id='myform' enctype="multipart/form-data" method="post" >
-            <h2>Select your file</h2>
-            <input type="file" style="width: 400px; background-color: white" class="form-control-sm form-control" id="fileUpload" /><br>
-            <input class="btn btn-outline-danger" type="button" value="Upload" id="uploadFile">
-         </form>
-         
+         <div class="row" data-aos="slide-up">
+          <div class="service-item first-item" style="float:left;" >
+              <h4>Upload Document</h4>
+                  <div id="container" class="container mt-3">
+                      <h2>Upload File</h2>
+                      <form id='myform' enctype="multipart/form-data" method="post" >
+                        <div class="custom-file mb-3">
+                        <input type="file"  class="custom-file-input" id="fileUpload" name="filename" onchange="name();"/><br>
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                          <div class="mt-3"><input class="btn btn-outline-danger" type="button" value="Upload" id="uploadFile"></div>
+                     </form>
+                  </div>
+          </div>
+         </div>
       </div>
+
+        <script type="text/javascript">
+          function name() {
+          alert('hai');
+          var fileName = $(this).val().split("\\").pop();
+          $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        };
+        </script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js">
       </script>
-      <script src="{{ url_for('static', filename='upload-doc.js')}}"></script> 
+      <script src="assets/js/upload-doc.js"></script>
       
 {% endblock %}
