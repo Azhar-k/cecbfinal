@@ -1,6 +1,6 @@
  Flask==1.0.2
  requests==2.18.4
- setuptools==40.3.0
+ setuptools==65.5.1
  dialogflow==0.7.0
  python-dotenv==0.8.2
  PyMySQL==0.9.3
